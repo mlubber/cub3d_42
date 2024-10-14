@@ -16,10 +16,15 @@ MLXFLAGS			= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 RM					= rm -f
 
 # Source Files
-MAIN_DIR			= $(SRC_DIR)main.c
+MAIN_DIR			=	$(SRC_DIR)main.c
+
+PARSING_DIR			=	$(SRC_DIR)/parsing/cub3d.c \
+						$(SRC_DIR)/parsing/map.c
+
+UTILS_DIR			=	$(SRC_DIR)/utils/free_exit.c
 
 # Concatenate all source files
-SRCS 				= $(MAIN_DIR)
+SRCS 				= $(MAIN_DIR) $(PARSING_DIR) $(UTILS_DIR)
 
 # Apply the pattern substitution to each source file in SRC and produce a corresponding list of object files in the OBJ_DIR
 OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
