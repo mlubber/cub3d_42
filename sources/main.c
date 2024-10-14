@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/08 11:58:57 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/10/14 09:18:24 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	main(void)
 	printf("D: strafe right\n");
 	printf("<: rotate left\n");
 	printf(">: rotate right\n");
-	printf("sin(0.5) = %f\n", sin(0.5));        // Sine
-    printf("cos(0.5) = %f\n", cos(0.5));        // Cosine
-    printf("tan(0.5) = %f\n", tan(0.5));        // Tangent
-    printf("asin(0.5) = %f\n", asin(0.5));      // Inverse sine
-    printf("acos(0.5) = %f\n", acos(0.5));      // Inverse cosine
-    printf("atan(1.0) = %f\n", atan(1.0));      // Inverse tangent
+	printf("sin(0.5) = %f\n", sin(0.5));
+    printf("cos(0.5) = %f\n", cos(0.5));
+    printf("tan(0.5) = %f\n", tan(0.5));
+    printf("asin(0.5) = %f\n", asin(0.5));
+    printf("acos(0.5) = %f\n", acos(0.5));
+    printf("atan(1.0) = %f\n", atan(1.0));
     printf("atan2(1.0, 1.0) = %f\n", atan2(1.0, 1.0));
+	printf("abbas was here\n");
 	return (0);
 }
