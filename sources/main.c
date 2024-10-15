@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/14 09:34:48 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/15 09:10:26 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ t_whole	*initialization_struct(char *map)
 int	main(int argc, char **argv)
 {
 	t_whole			*whole;
+	// mlx_t			*mlx;
 
+	// mlx = mlx_init(80, 80, "CUB3D", false);
 	if (argc != 2)
 		just_exit("no file");
 	else

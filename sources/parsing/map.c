@@ -74,6 +74,55 @@ void	make_node(int x, int y, int instance, t_whole *whole)
 }
 
 
+int	check_next_char(t_whole *whole, int y, int x)
+{
+	int	oldx;
+
+	oldx = x;
+	printf("in check next char\n");
+	while (whole->map->tiles[y][x].symbol && whole->map->tiles[y][x].symbol == ' ')
+		x++;
+	if (whole->map->tiles[y][x].symbol != '1' && whole->map->tiles[y][x].symbol != '\0')
+		return (1);
+	while (y <= whole->map_lines && whole->map->tiles[y][oldx].symbol == ' ')
+	{
+		y++;
+	}
+	
+	// while (whole->map->tiles[y][oldx].symbol && whole->map->tiles[y][oldx].symbol == ' ')
+	// 	y++;
+	if (whole->map->tiles[y][oldx].symbol != '1' && whole->map->tiles[y][oldx].symbol != '\0')
+		return (1);
+	return (0);
+}
+
+
+int check_map(t_whole *whole)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	printf("here\n");
+	while (y <= whole->map_lines)
+	{
+		x = 0;
+		while (whole->map->tiles[y][x].symbol != '\0')
+		{
+			if (whole->map->tiles[y][x].symbol == ' ')
+			{
+				if (check_next_char(whole, y, x))
+					return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+
+
 
 void	fill_map(t_whole *whole)
 {
@@ -97,7 +146,6 @@ void	fill_map(t_whole *whole)
 	j = 0;
 	while (1)
 	{
-		//printf("str is (%s)", str);
 		if (str == NULL)
 			break ;
 		i = 0;
@@ -116,7 +164,9 @@ void	fill_map(t_whole *whole)
 	free(str);
 	close (fd);
 	printf("end of fill map\n");
+	// printing the map
 	i = 0;
+	printf("whole->map_lines are (%d)\n", whole->map_lines);
 	while (i < whole->map_lines)
 	{
 		j = 0;
@@ -127,8 +177,9 @@ void	fill_map(t_whole *whole)
 		}
 		printf("\n");
 		i++;
+		printf("i is (%d)\n", i);
 	}
-	
+	printf("end map\n");
 }
 
 void	allocate_m_map(t_whole *whole)
@@ -165,5 +216,9 @@ void	allocate_m_map(t_whole *whole)
 	}
 	close(fd);
 	fill_map(whole);
-	//check_map(whole);
+	if (check_map(whole))
+	{
+		printf("map is not enclosed by wall\n");
+		exit(1);
+	}
 }
