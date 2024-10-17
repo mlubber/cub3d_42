@@ -19,7 +19,14 @@ RM					= rm -f
 MAIN_DIR			=	$(SRC_DIR)main.c
 
 PARSING_DIR			=	$(SRC_DIR)/parsing/cub3d.c \
-						$(SRC_DIR)/parsing/map.c
+						$(SRC_DIR)/parsing/map.c \
+						$(SRC_DIR)/parsing/check_and_save_elements1.c \
+						$(SRC_DIR)/parsing/check_and_save_elements2.c \
+						$(SRC_DIR)/parsing/linklist_xy_instance.c \
+						$(SRC_DIR)/parsing/map_check_around_space.c \
+						$(SRC_DIR)/parsing/depth_first_search.c \
+						$(SRC_DIR)/parsing/map_check_charater_duplicate.c \
+						$(SRC_DIR)/parsing/map_allocation_filling.c
 
 UTILS_DIR			=	$(SRC_DIR)/utils/free_exit.c
 

@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/14 10:17:35 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/17 13:36:34 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,47 +56,35 @@ typedef struct s_connect
 	char			*cub_t_EA;
 	char			*cub_color_F;
 	char			*cub_color_C;
-	int				p;
-	int				e;
-	int				line;
+	int				all_zeros;
+	int				access_all_zeros;
 	int				map_lines;
 	int				number_of_line_before_map;
 	int				column;
-	int				access_coins;
-	int				access_exit;
 	int				x;
 	int				y;
-	int				total_coins;
-	int				collected;
-	int				moves;
 	char			*given_map;
-	mlx_t			*mlx;
-	mlx_texture_t	*my_t_p;
-	mlx_texture_t	*my_t_p_01;
-	mlx_texture_t	*my_t_p_02;
-	mlx_texture_t	*my_t_e;
-	mlx_texture_t	*my_t_b;
-	mlx_texture_t	*my_t_w;
-	mlx_texture_t	*my_t_c;
-	mlx_image_t		*img_p;
-	mlx_image_t		*img_p_01;
-	mlx_image_t		*img_p_02;
-	mlx_image_t		*img_e;
-	mlx_image_t		*img_b;
-	mlx_image_t		*img_w;
-	mlx_image_t		*img_c;
-	mlx_image_t		*img_str;
 	t_map			*map;
-	t_map_list			*list_clue;
+	t_map_list		*list_clue;
 }					t_whole;
 
 
 
-void	allocate_m_map(t_whole *whole);
-int		check_file_cub(t_whole *whole);
+void	allocate_m_map(t_whole *whole, int i);
+int		check_file_cub(t_whole *whole, int i, int fd);
+void	malloc_or_open_failed(t_whole *whole, int num);
 void	ft_free_map_list_exit(t_whole *whole, char *str);
 void	ft_free_map_exit(t_whole *whole, char *str);
 void	ft_free_exit(t_whole *whole, char *str);
+void	just_exit(char *str);
+void	print_error(t_whole *whole, char *text, char *line);
+int		is_white_space(char c);
+int		check_is_already_saved(t_whole *whole, char *line, int i);
+int		check_edges(t_whole *whole);
+int		check_next_char(t_whole *whole, int y, int x, int direction);
+
+int		is_player_reach_everywhere(t_whole *whole);
+void	call_check_map_and_check_result(t_whole *whole, int i);
 
 
 
