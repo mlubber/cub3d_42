@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/15 11:14:24 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/10/15 16:04:32 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,25 @@ void	ft_hook(void *param)
 		data->image->instances[0].x += 5;
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
-	if (init_data(data) == 1)
-		return (EXIT_FAILURE);
-	mlx_loop_hook(data->mlx, ft_randomize, data);
-	mlx_loop_hook(data->mlx, ft_hook, data);
-	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
-	free(data);
+	if (argc != 2)
+		error_exit("arg");
+	else
+	{
+		data = init_struct(&argv[1][0]);
+		check_extension(data);
+		if (init_data(data) == 1)
+			return (EXIT_FAILURE);
+		check_file(data);
+		mlx_loop_hook(data->mlx, ft_randomize, data);
+		mlx_loop_hook(data->mlx, ft_hook, data);
+		mlx_loop(data->mlx);
+		mlx_terminate(data->mlx);
+		free(data);
+	}
 	return (EXIT_SUCCESS);
 }
 

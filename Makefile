@@ -39,8 +39,8 @@ all: 				libmlx $(NAME)
 libmlx:
 					@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-$(NAME): 			$(LIBFT) $(OBJS) 
-					@$(CC) $(LIBFT) $(OBJS) $(MLXFLAGS) $(INC) -o $(NAME)
+$(NAME): 			$(OBJS) $(LIBFT)
+					@$(CC) $(OBJS) $(LIBFT) $(MLXFLAGS) $(INC) -o $(NAME)
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 					@echo "Compiling ${notdir $<}"
