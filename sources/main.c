@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/17 14:27:24 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/21 12:53:27 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_name_extantion(t_whole *whole)
 	".cub", ft_strlen(&whole->given_map[i])) == 0)
 		return ;
 	else
-		ft_free_exit(whole, "extension");
+		print_error(whole, "extension");
 }
 
 t_whole	*initialization_struct(char *map)
@@ -32,13 +32,10 @@ t_whole	*initialization_struct(char *map)
 
 	whole = ft_calloc(1, sizeof(t_whole));
 	if (!whole)
-		just_exit("allocation");
+		print_error(whole, "allocation");
 	whole->map = ft_calloc(1, sizeof(t_map));
 	if (!whole->map)
-	{
-		free(whole);
-		just_exit("allocation");
-	}
+		print_error(whole, "allocation");
 	whole->given_map = map;
 	return (whole);
 }
@@ -46,20 +43,20 @@ t_whole	*initialization_struct(char *map)
 int	main(int argc, char **argv)
 {
 	t_whole			*whole;
+	char			*line;
 	// mlx_t			*mlx;
 
 	// mlx = mlx_init(80, 80, "CUB3D", false);
+	line = NULL;
+	whole = NULL;
 	if (argc != 2)
-		just_exit("no file");
+		print_error(whole, "no file");
 	else
 	{
 		whole = initialization_struct(&argv[1][0]);
 		check_name_extantion(whole);
-		if (check_file_cub(whole, 0, 0))
-		{
-			
-			return (1);
-		}
+		check_file_cub(whole, 0, 0, line);
+		free_all(whole, 0);
 	}
 	return (0);
 }

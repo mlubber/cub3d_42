@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:49:33 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/17 12:14:02 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/21 15:19:49 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ int	is_player_double(t_whole *whole)
 		while (x < whole->column)
 		{
 			if (ft_strchr("NSEW", whole->map->tiles[y][x].symbol))
+			{
+				whole->x = x;
+				whole->y = y;
 				player++;
+			}
 			x++;
 		}
 		y++;
@@ -103,9 +107,9 @@ void	call_check_map_and_check_result(t_whole *whole, int i)
 	if (i)
 	{
 		if (i == 1)
-			printf("Error, map is not enclosed by wall\n");
+			print_error(whole, "not enclosed");
 		if (i == 3)
-			printf("Error, amount of player doesn't coorect\n");
+			print_error(whole, "amount of player");
 		if (i == 4)
 			printf("Error, player doesn'e access everywher\n");
 		exit(1);

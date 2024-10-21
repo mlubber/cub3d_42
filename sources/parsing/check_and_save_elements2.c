@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 14:20:14 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/17 15:46:26 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/21 15:19:02 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int	save_line_in_whole(char **which, char *line, int i)
 	while (line[newi] && !is_white_space(line[newi]) && line[newi] != '\n')
 		newi++;
 	*which = ft_substr(line, i, newi - i);
-	if (line)
-		free(line);
-	line = NULL;
 	return (0);
 }
 
@@ -50,7 +47,7 @@ int	check_is_already_saved(t_whole *whole, char *line, int i)
 
 	sub = ft_substr(line, 0, 2);
 	if (!sub)
-		exit(1);
+		malloc_or_open_failed(whole, 1);
 	if (!ft_strncmp(sub, "F ", 2))
 		return (free(sub), save_element(&whole->cub_color_F, line, i));
 	if (!ft_strncmp(sub, "C ", 2))
@@ -58,7 +55,7 @@ int	check_is_already_saved(t_whole *whole, char *line, int i)
 	free(sub);
 	sub = ft_substr(line, 0, 3);
 	if (!sub)
-		exit(1);
+		malloc_or_open_failed(whole, 1);
 	if (!ft_strncmp(sub, "NO ", 3))
 		return (free(sub), save_element(&whole->cub_t_NO, line, i));
 	if (!ft_strncmp(sub, "SO ", 3))

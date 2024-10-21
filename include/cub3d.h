@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/17 13:36:34 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/21 13:18:38 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_connect
 	char			*cub_t_EA;
 	char			*cub_color_F;
 	char			*cub_color_C;
+	int				empty_file;
 	int				all_zeros;
 	int				access_all_zeros;
 	int				map_lines;
@@ -70,14 +71,20 @@ typedef struct s_connect
 
 
 
-void	allocate_m_map(t_whole *whole, int i);
-int		check_file_cub(t_whole *whole, int i, int fd);
+void	allocate_m_map(t_whole *whole, int i, int old_fd);
+void	check_file_cub(t_whole *whole, int i, int fd, char *line);
 void	malloc_or_open_failed(t_whole *whole, int num);
+
+
 void	ft_free_map_list_exit(t_whole *whole, char *str);
 void	ft_free_map_exit(t_whole *whole, char *str);
-void	ft_free_exit(t_whole *whole, char *str);
 void	just_exit(char *str);
-void	print_error(t_whole *whole, char *text, char *line);
+
+void	read_line_until_end(int fd);
+void	ft_free_map_from_n(t_map *map, int line);
+void	free_all(t_whole *whole, int exit_code);
+void	print_error(t_whole *whole, char *str);
+void	print_error_with_line(t_whole *whole, char *text, char *line);
 int		is_white_space(char c);
 int		check_is_already_saved(t_whole *whole, char *line, int i);
 int		check_edges(t_whole *whole);
