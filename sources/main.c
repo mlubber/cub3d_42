@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/15 16:04:32 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/10/22 06:52:50 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int	main(int argc, char **argv)
 		error_exit("arg");
 	else
 	{
-		data = init_struct(&argv[1][0]);
+		data = malloc_struct(&argv[1][0]);
 		check_extension(data);
-		if (init_data(data) == 1)
-			return (EXIT_FAILURE);
 		check_file(data);
+		init_struct(data);
+		if (init_window(data) == 1)
+			return (EXIT_FAILURE);
 		mlx_loop_hook(data->mlx, ft_randomize, data);
 		mlx_loop_hook(data->mlx, ft_hook, data);
 		mlx_loop(data->mlx);

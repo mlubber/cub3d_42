@@ -18,7 +18,10 @@ RM					= rm -f
 # Source Files
 MAIN_DIR			= $(SRC_DIR)main.c
 
-UTILS_DIR			= $(SRC_DIR)utils/utils.c
+UTILS_DIR			= $(SRC_DIR)utils/utils.c \
+					  $(SRC_DIR)utils/draw.c \
+					  $(SRC_DIR)utils/convert.c \
+					  $(SRC_DIR)utils/free.c \
 
 INIT_DIR			= $(SRC_DIR)init/init.c
 
