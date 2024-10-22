@@ -18,17 +18,18 @@ RM					= rm -f
 # Source Files
 MAIN_DIR			=	$(SRC_DIR)main.c
 
-PARSING_DIR			=	$(SRC_DIR)/parsing/cub3d.c \
-						$(SRC_DIR)/parsing/map.c \
-						$(SRC_DIR)/parsing/check_and_save_elements1.c \
-						$(SRC_DIR)/parsing/check_and_save_elements2.c \
+PARSING_DIR			=	$(SRC_DIR)/parsing/check_file.c \
+						$(SRC_DIR)/parsing/process_element.c \
+						$(SRC_DIR)/parsing/check_scenario.c \
 						$(SRC_DIR)/parsing/linklist_xy_instance.c \
-						$(SRC_DIR)/parsing/map_check_around_space.c \
+						$(SRC_DIR)/parsing/map_validation.c \
 						$(SRC_DIR)/parsing/depth_first_search.c \
 						$(SRC_DIR)/parsing/map_check_charater_duplicate.c \
-						$(SRC_DIR)/parsing/map_allocation_filling.c
+						$(SRC_DIR)/parsing/map_allocation_filling.c \
+						$(SRC_DIR)/parsing/color_validation.c
 
-UTILS_DIR			=	$(SRC_DIR)/utils/free_exit.c
+UTILS_DIR			=	$(SRC_DIR)/utils/free_exit.c \
+						$(SRC_DIR)/utils/utils.c
 
 # Concatenate all source files
 SRCS 				= $(MAIN_DIR) $(PARSING_DIR) $(UTILS_DIR)

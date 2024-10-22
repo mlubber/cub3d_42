@@ -6,12 +6,11 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 14:55:45 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/21 10:03:55 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/22 14:21:00 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-
+// #include "../../include/cub3d.h"
 
 // int	ft_lst_map_size(t_map_list *lst)
 // {

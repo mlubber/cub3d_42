@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:49:33 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/21 15:19:49 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/22 16:28:04 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	other_char_inside_map(t_whole *whole)
 		{
 			if (!ft_strchr("NSEW01 ", whole->map->tiles[y][x].symbol))
 			{
-				printf("Error, this cahracter: (%c) is inavalid\n", \
+				printf("Error, this character: (%c) is invalid\n",
 					whole->map->tiles[y][x].symbol);
 				return (1);
 			}
@@ -87,8 +87,8 @@ int	check_map(t_whole *whole, int y, int x)
 		{
 			if (whole->map->tiles[y][x].symbol == ' ')
 			{
-				if (check_next_char(whole, y, x, 0) || check_next_char(whole \
-					, y, x, 1) || check_next_char(whole, y, x, 2) \
+				if (check_next_char(whole, y, x, 0) || check_next_char(whole
+						, y, x, 1) || check_next_char(whole, y, x, 2)
 					|| check_next_char(whole, y, x, 3))
 					return (1);
 			}
@@ -96,22 +96,19 @@ int	check_map(t_whole *whole, int y, int x)
 		}
 		y++;
 	}
-	if (is_player_reach_everywhere(whole))
-		return (4);
 	return (0);
 }
 
-void	call_check_map_and_check_result(t_whole *whole, int i)
+void	call_check_map_and_result(t_whole *whole, int i, char *line)
 {
 	i = check_map(whole, 0, 0);
 	if (i)
 	{
+		free(line);
 		if (i == 1)
 			print_error(whole, "not enclosed");
 		if (i == 3)
 			print_error(whole, "amount of player");
-		if (i == 4)
-			printf("Error, player doesn'e access everywher\n");
-		exit(1);
+		free_all(whole, 1);
 	}
 }

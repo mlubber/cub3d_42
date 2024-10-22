@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 15:00:12 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/17 12:24:07 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/22 13:40:25 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ int	check_edge_line(t_tile **tiles, int index, int limit, int is_row)
 
 int	check_edges(t_whole *whole)
 {
-	// rows
 	if (check_edge_line(whole->map->tiles, 0, whole->column, 1) || \
 	check_edge_line(whole->map->tiles, whole->map_lines - 1, whole->column, 1))
 		return (1);
-
-	// columns
 	if (check_edge_line(whole->map->tiles, 0, whole->map_lines, 0) || \
 	check_edge_line(whole->map->tiles, whole->column - 1, whole->map_lines, 0))
 		return (1);

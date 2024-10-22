@@ -6,13 +6,13 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/21 12:53:27 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/22 16:29:51 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	check_name_extantion(t_whole *whole)
+void	check_name_extention(t_whole *whole)
 {
 	int	i;
 
@@ -44,9 +44,7 @@ int	main(int argc, char **argv)
 {
 	t_whole			*whole;
 	char			*line;
-	// mlx_t			*mlx;
 
-	// mlx = mlx_init(80, 80, "CUB3D", false);
 	line = NULL;
 	whole = NULL;
 	if (argc != 2)
@@ -54,8 +52,9 @@ int	main(int argc, char **argv)
 	else
 	{
 		whole = initialization_struct(&argv[1][0]);
-		check_name_extantion(whole);
-		check_file_cub(whole, 0, 0, line);
+		check_name_extention(whole);
+		check_file(whole, 0, 0, line);
+		hexconvert(whole, 0, 0, 0);
 		free_all(whole, 0);
 	}
 	return (0);
