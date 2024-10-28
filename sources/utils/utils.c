@@ -3,39 +3,115 @@
 /*                                                        ::::::::            */
 /*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
+/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/10/15 10:49:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/15 10:49:58 by mlubbers      ########   odam.nl         */
+/*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
+/*   Updated: 2024/10/28 06:52:19 by link          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+void	print_map(t_whole *whole)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < whole->map_lines)
+	{
+		j = 0;
+		while (j < whole->column)
+		{
+			printf("%c", whole->map->tiles[i][j].symbol);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }
 
-void	ft_randomize(void *param)
+void	read_line_until_end(int fd)
 {
-	t_data		*data;
-	uint32_t	i;
-	uint32_t	y;
-	uint32_t	colour;
+	char	*line;
 
-	data = (t_data *)param;
-	i = 0;
-	while (i < data->image->width)
+	line = NULL;
+	while (1)
 	{
-		y = 0;
-		while (y < data->image->height)
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		free(line);
+	}
+	close(fd);
+}
+
+char	*free_array(char **strlist)
+{
+	int	i;
+
+	i = 0;
+	while (strlist[i])
+	{
+		free(strlist[i]);
+		i++;
+	}
+	free(strlist);
+	return (NULL);
+}
+
+int	check_split(char **split)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (split[i] != NULL)
+	{
+		j = 0;
+		while (split[i][j] != '\0')
 		{
-			colour = ft_pixel(rand() % 0xFF, rand() % 0xFF,
-					rand() % 0xFF, rand() % 0xFF);
-			mlx_put_pixel(data->image, i, y, colour);
-			y++;
+			if (!ft_isdigit(split[i][j]))
+			{
+				free_array(split);
+				return (1);
+			}
+			j++;
 		}
 		i++;
 	}
+	if (i != 3)
+	{
+		free_array(split);
+		return (1);
+	}
+	return (0);
+}
+
+void	print_error(t_whole *whole, char *str)
+{
+	ft_putstr_fd("Error\n", 2);
+	if (ft_strncmp(str, "player", ft_strlen(str)) == 0)
+		ft_putstr_fd("the number of player is not correct!\n", 2);
+	else if (ft_strncmp(str, "position", ft_strlen(str)) == 0)
+		ft_putstr_fd("position of player is not correct!\n", 2);
+	if (ft_strncmp(str, "open", ft_strlen(str)) == 0)
+		ft_putstr_fd("can't open the map or permission error!\n", 2);
+	if (ft_strncmp(str, "no file", ft_strlen(str)) == 0)
+		ft_putstr_fd("program need a file in format (.cub) to run!\n", 2);
+	if (ft_strncmp(str, "allocation", ft_strlen(str)) == 0)
+		ft_putstr_fd("memory allocation denied!\n", 2);
+	if (ft_strncmp(str, "extension", ft_strlen(str)) == 0)
+		ft_putstr_fd("file extension is not correct!\n", 2);
+	if (ft_strncmp(str, "Empty file", ft_strlen(str)) == 0)
+		ft_putstr_fd("your given file is empty!\n", 2);
+	if (ft_strncmp(str, "not enclosed", ft_strlen(str)) == 0)
+		ft_putstr_fd("map is not enclosed by wall!\n", 2);
+	if (ft_strncmp(str, "amount of player", ft_strlen(str)) == 0)
+		ft_putstr_fd("amount of player doesn't coorect!\n", 2);
+	if (ft_strncmp(str, "char after map", ft_strlen(str)) == 0)
+		ft_putstr_fd("after map can't be any other element!\n", 2);
+	if (ft_strncmp(str, "color", ft_strlen(str)) == 0)
+		ft_putstr_fd("syntax color not correct!\n", 2);
+	free_all(whole, 1);
 }
