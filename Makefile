@@ -11,8 +11,8 @@ INC					= -I ./include -I $(LIBMLX)/include
 
 # Compiler and CFlags
 CC					= cc
-CFLAGS				= -Wall -Wextra -Werror -Wunreachable-code -Ofast
-MLXFLAGS			= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+CFLAGS				= -g -Wall -Wextra -Werror -Wunreachable-code -Ofast -fsanitize=address
+MLXFLAGS			= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -fsanitize=address
 RM					= rm -f
 
 # Source Files

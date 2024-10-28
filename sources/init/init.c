@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/22 08:09:41 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/10/28 06:37:03 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,32 @@ int	init_window(t_data *data)
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	// data->ceiling = ft_draw_rect(data->mlx, WIDTH + 1, HEIGHT, data->c_hex);
-	// if (!data->ceiling)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	printf("%s\n", mlx_strerror(mlx_errno));
-	// 	return (EXIT_FAILURE);
-	// }
-	// if (mlx_image_to_window(data->mlx, data->ceiling, 0, 0) == -1)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	printf("%s\n", mlx_strerror(mlx_errno));
-	// 	return (EXIT_FAILURE);
-	// }
-	// data->floor = ft_draw_rect(data->mlx, WIDTH + 1, HEIGHT / 2, data->f_hex);
-	// if (!data->floor)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	printf("%s\n", mlx_strerror(mlx_errno));
-	// 	return (EXIT_FAILURE);
-	// }
-	// if (mlx_image_to_window(data->mlx, data->floor, 0, HEIGHT / 2) == -1)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	printf("%s\n", mlx_strerror(mlx_errno));
-	// 	return (EXIT_FAILURE);
-	// }
+	data->ceiling = ft_draw_rect(data->mlx, WIDTH + 1, HEIGHT, data->c_hex);
+	if (!data->ceiling)
+	{
+		mlx_close_window(data->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	if (mlx_image_to_window(data->mlx, data->ceiling, 0, 0) == -1)
+	{
+		mlx_close_window(data->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	data->floor = ft_draw_rect(data->mlx, WIDTH + 1, HEIGHT / 2, data->f_hex);
+	if (!data->floor)
+	{
+		mlx_close_window(data->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	if (mlx_image_to_window(data->mlx, data->floor, 0, HEIGHT / 2) == -1)
+	{
+		mlx_close_window(data->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
 	data->image = mlx_new_image(data->mlx, 32, 32);
 	if (!data->image)
 	{
