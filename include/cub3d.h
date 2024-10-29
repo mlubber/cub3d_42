@@ -6,15 +6,18 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/28 06:51:53 by link          ########   odam.nl         */
+/*   Updated: 2024/10/29 11:20:21 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 512
-# define HEIGHT 512
+# define TILE 80
+# define WIDTH 1920
+# define HEIGHT 1080
+# define PI 3.14159265359
+# define SPEED 500
 
 # include <math.h>
 # include <string.h>
@@ -43,16 +46,17 @@ typedef struct s_map
 	t_tile	**tiles;
 }			t_map;
 
-typedef struct s_map_list
-{
-	int					x;
-	int					y;
-	int					instance;
-	struct s_map_list	*next;
-}			t_map_list;
-
 typedef struct s_whole
 {
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	mlx_image_t		*floor;
+	mlx_image_t		*wall;
+	mlx_image_t		*no_img;
+	mlx_image_t		*so_img;
+	mlx_image_t		*we_img;
+	mlx_image_t		*ea_img;
+	mlx_texture_t	*texture;
 	char			*cub_t_no;
 	char			*cub_t_so;
 	char			*cub_t_we;
@@ -67,19 +71,20 @@ typedef struct s_whole
 	int				map_lines;
 	int				number_of_line_before_map;
 	int				column;
-	int				x;
-	int				y;
+	double			player_x;
+	double			player_y;
+	int				width;
+	int				height;
+	char			player_dir;
+	double			pa;
+	double			pdx;
+	double			pdy;
 	char			*given_map;
 	t_map			*map;
-	t_map_list		*list_clue;
 }					t_whole;
 
 void		allocate_m_map(t_whole *whole, int i, char *line_to_free);
 void		check_file(t_whole *whole, int i, int fd, char *line);
-
-void		ft_free_map_list_exit(t_whole *whole, char *str);
-void		ft_free_map_exit(t_whole *whole, char *str);
-void		just_exit(char *str);
 
 void		read_line_until_end(int fd);
 void		ft_free_map_from_n(t_map *map, int line);
@@ -91,7 +96,6 @@ int			check_is_already_saved(t_whole *whole, char *line, int i);
 int			check_edges(t_whole *whole);
 int			check_next_char(t_whole *whole, int y, int x, int direction);
 
-int			is_player_reach_everywhere(t_whole *whole);
 void		call_check_map_and_result(t_whole *whole, int i, char *line);
 
 void		print_map(t_whole *whole);
@@ -102,17 +106,19 @@ int			hexconvert(t_whole *whole, int i, int r, int g);
 char		*free_array(char **strlist);
 int			check_split(char **split);
 
-typedef struct s_data
-{
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-}	t_data;
+void		check_textures(t_whole *whole, char c);
 
 // Init
-int			init_data(t_data *data);
+int			init_window(t_whole *whole);
 
 // Utils
+void		put_player(void *param);
+void		*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
+				uint32_t color);
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-void		ft_randomize(void *param);
+
+// Execute
+
+void		ft_hook(void *param);
 
 #endif

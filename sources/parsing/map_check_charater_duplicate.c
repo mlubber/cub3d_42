@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:49:33 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:28:04 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/29 11:05:41 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int	is_player_double(t_whole *whole)
 		{
 			if (ft_strchr("NSEW", whole->map->tiles[y][x].symbol))
 			{
-				whole->x = x;
-				whole->y = y;
+				whole->player_x = (double)x * TILE;
+				whole->player_y = (double)y * TILE;
 				player++;
+				whole->player_dir = whole->map->tiles[y][x].symbol;
 			}
 			x++;
 		}

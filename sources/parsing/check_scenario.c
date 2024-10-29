@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:14:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:26:58 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/28 10:16:11 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int	check_scenario(t_whole *whole, char *line, int fd)
 		whole->cub_t_no && whole->cub_t_so && whole->cub_t_we)
 	{
 		take_map_lines_and_column(whole, line, fd, 0);
+		whole->width = whole->column * TILE;
+		whole->height = whole->map_lines * TILE;
 		if (check_for_empty_lines(whole, line, 0, 0))
 			return (1);
 		allocate_m_map(whole, 0, line);

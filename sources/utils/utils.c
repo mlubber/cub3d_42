@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/28 06:52:19 by link          ########   odam.nl         */
+/*   Updated: 2024/10/29 10:25:17 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	print_error(t_whole *whole, char *str)
 	ft_putstr_fd("Error\n", 2);
 	if (ft_strncmp(str, "player", ft_strlen(str)) == 0)
 		ft_putstr_fd("the number of player is not correct!\n", 2);
-	else if (ft_strncmp(str, "position", ft_strlen(str)) == 0)
-		ft_putstr_fd("position of player is not correct!\n", 2);
+	if (ft_strncmp(str, "open texture", ft_strlen(str)) == 0)
+		ft_putstr_fd("can't open texture or permission denied\n", 2);
 	if (ft_strncmp(str, "open", ft_strlen(str)) == 0)
 		ft_putstr_fd("can't open the map or permission error!\n", 2);
 	if (ft_strncmp(str, "no file", ft_strlen(str)) == 0)
