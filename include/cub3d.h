@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:28:12 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/28 14:16:04 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
 # include "../libraries/libft/include/libft.h"
 # include "../libraries/libft/include/get_next_line.h"
+
+# define PI 3.1415926535
 
 typedef struct s_tile
 {
@@ -64,11 +66,26 @@ typedef struct s_whole
 	int				map_lines;
 	int				number_of_line_before_map;
 	int				column;
-	int				x;
-	int				y;
+	float			x;
+	float			y;
+	float			pdy;
+	float			pdx;
+	float			pa;
+	char			player_dir;
+	int				moves;
+	int				flag;
 	char			*given_map;
 	t_map			*map;
 	t_map_list		*list_clue;
+	mlx_t			*mlx;
+	mlx_texture_t	*t_no;
+	mlx_texture_t	*t_so;
+	mlx_texture_t	*t_we;
+	mlx_texture_t	*t_ea;
+	mlx_image_t		*img_no;
+	mlx_image_t		*img_so;
+	mlx_image_t		*img_we;
+	mlx_image_t		*img_ea;
 }					t_whole;
 
 void		allocate_m_map(t_whole *whole, int i, char *line_to_free);
@@ -98,5 +115,9 @@ int			process_element(t_whole *whole, char *line, int i, int fd);
 int			hexconvert(t_whole *whole, int i, int r, int g);
 char		*free_array(char **strlist);
 int			check_split(char **split);
+void		check_texture_path(t_whole *whole, char **envp);
+
+void		make_image(t_whole *whole);
+void		my_key_hook(mlx_key_data_t keydata, void *param);
 
 #endif

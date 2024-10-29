@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:22:03 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/24 08:31:12 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ void	print_error(t_whole *whole, char *str)
 	ft_putstr_fd("Error\n", 2);
 	if (ft_strncmp(str, "player", ft_strlen(str)) == 0)
 		ft_putstr_fd("the number of player is not correct!\n", 2);
-	else if (ft_strncmp(str, "position", ft_strlen(str)) == 0)
-		ft_putstr_fd("position of player is not correct!\n", 2);
+	else if (ft_strncmp(str, "open texture", ft_strlen(str)) == 0)
+		ft_putstr_fd("can't open the texture or permission denied!\n", 2);
 	if (ft_strncmp(str, "open", ft_strlen(str)) == 0)
-		ft_putstr_fd("can't open the map or permission error!\n", 2);
+		ft_putstr_fd("can't open the map or permission denied!\n", 2);
 	if (ft_strncmp(str, "no file", ft_strlen(str)) == 0)
 		ft_putstr_fd("program need a file in format (.cub) to run!\n", 2);
 	if (ft_strncmp(str, "allocation", ft_strlen(str)) == 0)

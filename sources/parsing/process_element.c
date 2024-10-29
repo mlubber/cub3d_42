@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 14:20:14 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:29:16 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/24 14:14:30 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,25 @@ int	save_line_in_whole(char **which, char *line, int i)
 	while (line[i] && is_white_space(line[i]))
 		i++;
 	newi = i;
-	while (line[newi] && !is_white_space(line[newi]) && line[newi] != '\n')
+	while (line[newi] && line[newi] != '\n')
 		newi++;
 	*which = ft_substr(line, i, newi - i);
 	return (0);
 }
+
+
+// int	save_line_in_whole(char **which, char *line, int i)
+// {
+// 	int	newi;
+
+// 	while (line[i] && is_white_space(line[i]))
+// 		i++;
+// 	newi = i;
+// 	while (line[newi] && !is_white_space(line[newi]) && line[newi] != '\n')
+// 		newi++;
+// 	*which = ft_substr(line, i, newi - i);
+// 	return (0);
+// }
 
 int	save_element(char **element, char *line, int i)
 {

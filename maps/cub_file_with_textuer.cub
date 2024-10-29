@@ -1,0 +1,29 @@
+
+
+
+F 220,100,0
+C 225,30,0
+
+NO ~/Downloads/wall.png
+
+SO ./home/adakheel/Downloads/house.png
+WE /Downloads/grass.png
+
+
+EA /home/adakheel/Downloads/player.png
+
+
+
+
+
+111111111111111
+111111111111111
+111111111111111
+1S0000000000011
+100001111111011
+100001     101
+100111     111
+1000111111111
+1000111   111
+1000111    11
+1111111    11

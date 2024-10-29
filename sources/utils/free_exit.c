@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:55:24 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:26:58 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/25 12:14:28 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void	free_char_p_whole(t_whole *whole)
 		free(whole->cub_t_so);
 	if (whole->cub_t_we)
 		free(whole->cub_t_we);
-	whole->cub_color_c = NULL;
-	whole->cub_color_f = NULL;
-	whole->cub_t_ea = NULL;
-	whole->cub_t_no = NULL;
-	whole->cub_t_so = NULL;
-	whole->cub_t_we = NULL;
+	if (whole->t_ea)
+		free(whole->t_ea);
+	if (whole->t_no)
+		free(whole->t_no);
+	if (whole->t_we)
+		free(whole->t_we);
+	if (whole->t_so)
+		free(whole->t_so);
 }
 
 void	ft_free_map_from_n(t_map *map, int line)

@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:29:51 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/10/25 13:00:07 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_whole	*initialization_struct(char *map)
 	return (whole);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	t_whole			*whole;
 	char			*line;
@@ -55,6 +55,11 @@ int	main(int argc, char **argv)
 		check_name_extention(whole);
 		check_file(whole, 0, 0, line);
 		hexconvert(whole, 0, 0, 0);
+		check_texture_path(whole, envp);
+		make_image(whole);
+		mlx_key_hook(whole->mlx, my_key_hook, whole);
+		mlx_loop(whole->mlx);
+		mlx_terminate(whole->mlx);
 		free_all(whole, 0);
 	}
 	return (0);
