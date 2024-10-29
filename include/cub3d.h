@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 11:20:21 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/10/29 15:27:03 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,23 @@ typedef struct s_map
 	t_tile	**tiles;
 }			t_map;
 
+typedef	struct s_ray
+{
+	double	atan;
+	double	ry;
+	double	rx;
+	double	yo;
+	double	xo;
+	int		r;
+	int		dof;
+	double	ra;
+}			t_ray;
+
+
 typedef struct s_whole
 {
 	mlx_t			*mlx;
+	mlx_image_t		*ray_image;
 	mlx_image_t		*image;
 	mlx_image_t		*floor;
 	mlx_image_t		*wall;
@@ -81,6 +95,7 @@ typedef struct s_whole
 	double			pdy;
 	char			*given_map;
 	t_map			*map;
+	t_ray			*ray;
 }					t_whole;
 
 void		allocate_m_map(t_whole *whole, int i, char *line_to_free);
@@ -120,5 +135,7 @@ int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 // Execute
 
 void		ft_hook(void *param);
+void		raycasting(void *param);
+//void		draw_ray(void *param);
 
 #endif
