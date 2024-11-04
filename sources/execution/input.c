@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 09:34:11 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 13:00:36 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	collision_check(t_whole *whole, double x, double y)
 		whole->player_y = y;
 		whole->image->instances[0].x = (int)whole->player_x;
 		whole->image->instances[0].y = (int)whole->player_y;
+		raycasting(whole);
 	}
 }
 
@@ -27,23 +28,23 @@ static void	move(t_whole *whole, double x, double y, char direction)
 {
 	if (direction == 'U')
 	{
-		x = whole->player_x - (whole->pdx / TILE);
-		y = whole->player_y - (whole->pdy / TILE);
+		x = whole->player_x + whole->pdx;
+		y = whole->player_y + whole->pdy;
 	}
 	else if (direction == 'D')
 	{
-		x = whole->player_x + (whole->pdx / TILE);
-		y = whole->player_y + (whole->pdy / TILE);
+		x = whole->player_x - whole->pdx;
+		y = whole->player_y - whole->pdy;
 	}
 	else if (direction == 'L')
 	{
-		x = whole->player_x - (whole->pdy / TILE);
-		y = whole->player_y + (whole->pdx / TILE);
+		x = whole->player_x + whole->pdy;
+		y = whole->player_y - whole->pdx ;
 	}
 	else
 	{
-		x = whole->player_x + (whole->pdy / TILE);
-		y = whole->player_y - (whole->pdx / TILE);
+		x = whole->player_x - whole->pdy;
+		y = whole->player_y + whole->pdx;
 	}
 	collision_check(whole, x, y);
 }
@@ -64,6 +65,7 @@ static void	rotate(t_whole *whole, char direction)
 	}
 	whole->pdx = cos(whole->pa) * SPEED;
 	whole->pdy = sin(whole->pa) * SPEED;
+	raycasting(whole);
 }
 
 void	ft_hook(void *param)

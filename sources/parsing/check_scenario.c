@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:14:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/28 10:16:11 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	empty_line_found(t_whole *whole, int fd, int i, char *line_to_free)
 	int		j;
 
 	temp_map_line = i;
-	while (i++ < whole->map_lines - 1)
+	while (i++ < whole->rows - 1)
 	{
 		j = 0;
 		line = get_next_line(fd);
@@ -36,7 +36,7 @@ int	empty_line_found(t_whole *whole, int fd, int i, char *line_to_free)
 		}
 		free(line);
 	}
-	whole->map_lines = temp_map_line;
+	whole->rows = temp_map_line;
 	close(fd);
 	return (0);
 }
@@ -65,7 +65,7 @@ int	check_for_empty_lines(t_whole *whole, char *line_to_free, int i, int j)
 	if (fd < 0)
 		print_error(whole, "open");
 	line = escape_lines_before_map(whole, line, 0, fd);
-	while (i < whole->map_lines)
+	while (i < whole->rows)
 	{
 		j = 0;
 		while (line && line[j] && line[j] != '\n' && line[j] != '\0')
@@ -82,7 +82,7 @@ int	check_for_empty_lines(t_whole *whole, char *line_to_free, int i, int j)
 	return (0);
 }
 
-void	take_map_lines_and_column(t_whole *whole, char *line, int fd, int i)
+void	take_rows_and_column(t_whole *whole, char *line, int fd, int i)
 {
 	int		j;
 	int		longest;
@@ -107,7 +107,7 @@ void	take_map_lines_and_column(t_whole *whole, char *line, int fd, int i)
 			break ;
 	}
 	close(fd);
-	whole->map_lines = i;
+	whole->rows = i;
 	whole->column = longest;
 }
 
@@ -116,9 +116,9 @@ int	check_scenario(t_whole *whole, char *line, int fd)
 	if (whole->cub_color_c && whole->cub_color_f && whole->cub_t_ea && \
 		whole->cub_t_no && whole->cub_t_so && whole->cub_t_we)
 	{
-		take_map_lines_and_column(whole, line, fd, 0);
+		take_rows_and_column(whole, line, fd, 0);
 		whole->width = whole->column * TILE;
-		whole->height = whole->map_lines * TILE;
+		whole->height = whole->rows * TILE;
 		if (check_for_empty_lines(whole, line, 0, 0))
 			return (1);
 		allocate_m_map(whole, 0, line);

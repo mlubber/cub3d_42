@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 11:21:14 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:52:55 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_whole	*initialization_struct(char *map)
 int	main(int argc, char **argv)
 {
 	t_whole	*whole;
-	char 	*line;
+	char	*line;
 
 	line = NULL;
 	whole = NULL;

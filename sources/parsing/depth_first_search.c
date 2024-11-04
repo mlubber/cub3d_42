@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:06:38 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/28 14:46:17 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	if (whole->access_all_zeros == whole->all_zeros)
 // 		return (1);
 // 	if (visited[y][x] || x < 0 || x >= whole->column - 1 || y < 0 ||
-// 		y >= whole->map_lines - 1 || whole->map->tiles[y][x].symbol == '1')
+// 		y >= whole->rows - 1 || whole->map->tiles[y][x].symbol == '1')
 // 		return (0);
 // 	visited[y][x] = true;
 // 	if (whole->map->tiles[y][x].symbol == '0')
@@ -40,7 +40,7 @@
 
 // 	y = 0;
 // 	count = 0;
-// 	while (y < whole->map_lines)
+// 	while (y < whole->rows)
 // 	{
 // 		x = 0;
 // 		while (x < whole->column)
@@ -64,7 +64,7 @@
 // 	int	i;
 
 // 	i = 0;
-// 	while (i < whole->map_lines)
+// 	while (i < whole->rows)
 // 	{
 // 		free(visit[i]);
 // 		i++;
@@ -79,8 +79,8 @@
 // 	bool	**visited;
 
 // 	i = 0;
-// 	visited = ft_calloc(whole->map_lines, sizeof(bool *));
-// 	while (i < whole->map_lines)
+// 	visited = ft_calloc(whole->rows, sizeof(bool *));
+// 	while (i < whole->rows)
 // 	{
 // 		visited[i] = ft_calloc(whole->column, sizeof(bool));
 // 		i++;

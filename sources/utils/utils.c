@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/29 10:25:17 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_map(t_whole *whole)
 	int	j;
 
 	i = 0;
-	while (i < whole->map_lines)
+	while (i < whole->rows)
 	{
 		j = 0;
 		while (j < whole->column)

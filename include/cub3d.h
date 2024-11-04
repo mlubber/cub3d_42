@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 07:49:53 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 13:16:41 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159265359
-# define SPEED 500
+# define P2 1.57079632679
+# define P3	4.71238898038
+# define DR 0.0174533
+# define SPEED 5
 
 # include <math.h>
 # include <string.h>
@@ -46,9 +49,29 @@ typedef struct s_map
 	t_tile	**tiles;
 }			t_map;
 
+typedef struct s_ray
+{
+	double	h_tan;
+	double	v_tan;
+	double	h_ry;
+	double	h_rx;
+	double	v_ry;
+	double	v_rx;
+	double	h_yo;
+	double	h_xo;
+	double	v_yo;
+	double	v_xo;
+	double	h_dist;
+	double	v_dist;
+	double	ra;
+	double	ry;
+	double	rx;
+}	t_ray;
+
 typedef struct s_whole
 {
 	mlx_t			*mlx;
+	mlx_image_t		*ray_image;
 	mlx_image_t		*image;
 	mlx_image_t		*line;
 	mlx_image_t		*floor;
@@ -69,7 +92,7 @@ typedef struct s_whole
 	int				empty_file;
 	int				all_zeros;
 	int				access_all_zeros;
-	int				map_lines;
+	int				rows;
 	int				number_of_line_before_map;
 	int				column;
 	double			player_x;
@@ -82,6 +105,7 @@ typedef struct s_whole
 	double			pdy;
 	char			*given_map;
 	t_map			*map;
+	t_ray			*ray;
 }					t_whole;
 
 void		allocate_m_map(t_whole *whole, int i, char *line_to_free);
@@ -122,5 +146,11 @@ void		*ft_draw_line(mlx_t *mlx, uint32_t width, uint32_t height,
 // Execute
 
 void		ft_hook(void *param);
+void		raycasting(t_whole *whole);
+void		draw_ray(t_whole *whole, int i);
+
+double		calculate_distance(double ax, double ay, double bx, double by);
+void		change_degrees(t_whole *whole);
+void		set_ray_to_draw(t_whole *whole);
 
 #endif
