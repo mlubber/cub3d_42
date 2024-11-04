@@ -6,14 +6,14 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 13:16:41 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 15:39:40 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define TILE 80
+# define TILE 64
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159265359
@@ -66,6 +66,7 @@ typedef struct s_ray
 	double	ra;
 	double	ry;
 	double	rx;
+	double	r_dist;
 }	t_ray;
 
 typedef struct s_whole
@@ -141,8 +142,7 @@ void		put_player(void *param);
 void		*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
 				uint32_t color);
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-void		*ft_draw_line(mlx_t *mlx, uint32_t width, uint32_t height,
-				uint32_t color);
+
 // Execute
 
 void		ft_hook(void *param);

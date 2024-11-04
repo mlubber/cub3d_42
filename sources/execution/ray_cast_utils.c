@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:45:16 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 13:10:16 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 15:43:20 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	set_ray_to_draw(t_whole *whole)
 	{
 		whole->ray->rx = whole->ray->h_rx;
 		whole->ray->ry = whole->ray->h_ry;
+		whole->ray->r_dist = whole->ray->h_dist;
 	}
 	else
 	{
 		whole->ray->rx = whole->ray->v_rx;
 		whole->ray->ry = whole->ray->v_ry;
+		whole->ray->r_dist = whole->ray->v_dist;
 	}
 }
