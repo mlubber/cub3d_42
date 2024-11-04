@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:49:33 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/29 11:05:41 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	other_char_inside_map(t_whole *whole)
 	int	x;
 
 	y = 0;
-	while (y < whole->map_lines)
+	while (y < whole->rows)
 	{
 		x = 0;
 		while (x < whole->column)
@@ -44,7 +44,7 @@ int	is_player_double(t_whole *whole)
 
 	y = 0;
 	player = 0;
-	while (y < whole->map_lines)
+	while (y < whole->rows)
 	{
 		x = 0;
 		while (x < whole->column)
@@ -81,7 +81,7 @@ int	check_map(t_whole *whole, int y, int x)
 	y = call_checker_function(whole);
 	if (y)
 		return (y);
-	while (y < whole->map_lines)
+	while (y < whole->rows)
 	{
 		x = 0;
 		while (x < whole->column)

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:52:20 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/28 13:31:36 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fill_map(t_whole *whole, int i, int j, int fd)
 		free(str);
 	}
 	j = 0;
-	while (j < whole->map_lines)
+	while (j < whole->rows)
 	{
 		str = get_next_line(fd);
 		if (str == NULL)
@@ -63,10 +63,10 @@ void	allocate_m_map(t_whole *whole, int i, char *line_to_free)
 {
 	int			fd;
 
-	whole->map->tiles = (t_tile **)malloc(whole->map_lines * sizeof(t_tile *));
+	whole->map->tiles = (t_tile **)malloc(whole->rows * sizeof(t_tile *));
 	if (!whole->map->tiles)
 		print_error(whole, "allocation");
-	while (i < whole->map_lines)
+	while (i < whole->rows)
 	{
 		whole->map->tiles[i] = (t_tile *)malloc(whole->column * sizeof(t_tile));
 		if (!whole->map->tiles[i])

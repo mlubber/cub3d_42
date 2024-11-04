@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:55:24 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:26:58 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:56:40 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_free_map(t_whole *whole, t_map *map)
 	i = 0;
 	if (whole && whole->map && whole->map->tiles)
 	{
-		while (i < whole->map_lines)
+		while (i < whole->rows)
 		{
 			free(map->tiles[i]);
 			i++;
@@ -92,6 +92,8 @@ void	free_all(t_whole *whole, int exit_code)
 		ft_free_map(whole, whole->map);
 	if (whole && whole->map)
 		free(whole->map);
+	if (whole && whole->ray)
+		free(whole->ray);
 	if (whole)
 		free(whole);
 	if (exit_code)

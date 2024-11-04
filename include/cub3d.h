@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 15:27:03 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 12:01:44 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159265359
-# define SPEED 500
+# define P2 1.57079632679
+# define P3	4.71238898038
+# define DR 0.0174533
+# define SPEED 5
 
 # include <math.h>
 # include <string.h>
@@ -46,18 +49,24 @@ typedef struct s_map
 	t_tile	**tiles;
 }			t_map;
 
-typedef	struct s_ray
+typedef struct s_ray
 {
-	double	atan;
+	double	h_tan;
+	double	v_tan;
+	double	h_ry;
+	double	h_rx;
+	double	v_ry;
+	double	v_rx;
+	double	h_yo;
+	double	h_xo;
+	double	v_yo;
+	double	v_xo;
+	double	h_dist;
+	double	v_dist;
+	double	ra;
 	double	ry;
 	double	rx;
-	double	yo;
-	double	xo;
-	int		r;
-	int		dof;
-	double	ra;
-}			t_ray;
-
+}	t_ray;
 
 typedef struct s_whole
 {
@@ -82,7 +91,7 @@ typedef struct s_whole
 	int				empty_file;
 	int				all_zeros;
 	int				access_all_zeros;
-	int				map_lines;
+	int				rows;
 	int				number_of_line_before_map;
 	int				column;
 	double			player_x;
@@ -135,7 +144,11 @@ int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 // Execute
 
 void		ft_hook(void *param);
-void		raycasting(void *param);
-//void		draw_ray(void *param);
+void		raycasting(t_whole *whole);
+void		draw_ray(t_whole *whole, int i);
+
+double		calculate_distance(double ax, double ay, double bx, double by);
+void		change_degrees(t_whole *whole);
+void		set_ray_to_draw(t_whole *whole);
 
 #endif

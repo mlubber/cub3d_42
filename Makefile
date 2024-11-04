@@ -32,7 +32,9 @@ UTILS_DIR			=	$(SRC_DIR)utils/free_exit.c \
 						$(SRC_DIR)utils/draw.c \
 						$(SRC_DIR)utils/utils.c
 
-EXEC_DIR			=	$(SRC_DIR)execution/input.c
+EXEC_DIR			=	$(SRC_DIR)execution/input.c \
+						$(SRC_DIR)execution/ray_casting.c \
+						$(SRC_DIR)execution/ray_cast_utils.c
 
 INIT_DIR			=	$(SRC_DIR)init/init.c
 

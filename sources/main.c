@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 15:27:18 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:52:55 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_whole	*initialization_struct(char *map)
 int	main(int argc, char **argv)
 {
 	t_whole	*whole;
-	char 	*line;
+	char	*line;
 
 	line = NULL;
 	whole = NULL;
@@ -58,9 +58,7 @@ int	main(int argc, char **argv)
 		check_textures(whole, 'C');
 		if (init_window(whole) == 1)
 			return (EXIT_FAILURE);
-		//raycasting(whole);
 		mlx_loop_hook(whole->mlx, put_player, whole);
-		mlx_loop_hook(whole->mlx, raycasting, whole);
 		mlx_loop_hook(whole->mlx, ft_hook, whole);
 		mlx_loop(whole->mlx);
 		mlx_terminate(whole->mlx);

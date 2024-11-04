@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 15:41:19 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	put_map(t_whole *whole)
 		return (EXIT_FAILURE);
 	}
 	i = 0;
-	while (i < whole->map_lines)
+	while (i < whole->rows)
 	{
 		j = 0;
 		while (j < whole->column)
@@ -88,13 +88,13 @@ int	put_map(t_whole *whole)
 
 void	init_pa(t_whole *whole)
 {
-	if (whole->player_dir == 'W')
-		whole->pa = 0;
-	if (whole->player_dir == 'N')
-		whole->pa = 0.5 * PI;
 	if (whole->player_dir == 'E')
-		whole->pa = PI;
+		whole->pa = 0;
 	if (whole->player_dir == 'S')
+		whole->pa = 0.5 * PI;
+	if (whole->player_dir == 'W')
+		whole->pa = PI;
+	if (whole->player_dir == 'N')
 		whole->pa = 1.5 * PI;
 	whole->pdx = cos(whole->pa) * SPEED;
 	whole->pdy = sin(whole->pa) * SPEED;
@@ -112,5 +112,9 @@ int	init_window(t_whole *whole)
 	check_textures(whole, 'S');
 	if (put_map(whole) == 1)
 		return (EXIT_FAILURE);
+	whole->ray = ft_calloc(1, sizeof(t_ray));
+	if (!whole->ray)
+		print_error(whole, "allocation");
+	raycasting(whole);
 	return (EXIT_SUCCESS);
 }
