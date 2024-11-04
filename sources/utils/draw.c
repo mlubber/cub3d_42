@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/28 08:21:42 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 11:20:21 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 07:48:03 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,15 @@ void	*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
 		}
 		y++;
 	}
+	return (image);
+}
+
+void	*ft_draw_line(mlx_t *mlx, uint32_t width, uint32_t height,
+		uint32_t color)
+{
+	mlx_image_t	*image;
+
+	image = mlx_new_image(mlx, width, height);
+	mlx_put_pixel(image, 0, 0, color);
 	return (image);
 }

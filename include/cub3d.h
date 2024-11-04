@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 11:20:21 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 07:49:53 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_whole
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*line;
 	mlx_image_t		*floor;
 	mlx_image_t		*wall;
 	mlx_image_t		*no_img;
@@ -116,7 +117,8 @@ void		put_player(void *param);
 void		*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
 				uint32_t color);
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-
+void		*ft_draw_line(mlx_t *mlx, uint32_t width, uint32_t height,
+				uint32_t color);
 // Execute
 
 void		ft_hook(void *param);

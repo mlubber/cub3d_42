@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/29 11:16:25 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/04 07:57:01 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,21 @@ int	put_map(t_whole *whole)
 	if (mlx_image_to_window(whole->mlx, whole->image,
 			(int)whole->player_x,
 			(int)whole->player_y) == -1)
+	{
+		mlx_close_window(whole->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	whole->line = ft_draw_line(whole->mlx, whole->width, whole->height, 0xFF0000FF);
+	if (!whole->line)
+	{
+		mlx_close_window(whole->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	if (mlx_image_to_window(whole->mlx, whole->line,
+			(int)whole->player_x + 5,
+			(int)whole->player_y + 5) == -1)
 	{
 		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
