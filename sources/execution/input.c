@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 16:16:47 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 06:58:36 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	collision_check(t_whole *whole, double x, double y)
 		whole->player_y = y;
 		whole->image->instances[0].x = (int)whole->player_x;
 		whole->image->instances[0].y = (int)whole->player_y;
-		raycasting(whole);
+		whole->moved = true;
 	}
 }
 
@@ -65,7 +65,7 @@ static void	rotate(t_whole *whole, char direction)
 	}
 	whole->pdx = cos(whole->pa) * SPEED;
 	whole->pdy = sin(whole->pa) * SPEED;
-	raycasting(whole);
+	whole->moved = true;
 }
 
 void	ft_hook(void *param)
@@ -77,6 +77,7 @@ void	ft_hook(void *param)
 	whole = (t_whole *)param;
 	temp_x = whole->player_x;
 	temp_y = whole->player_y;
+	whole->moved = false;
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(whole->mlx);
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_W))
@@ -91,4 +92,6 @@ void	ft_hook(void *param)
 		rotate(whole, 'L');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_RIGHT))
 		rotate(whole, 'R');
+	if (whole->moved)
+		raycasting(whole);
 }

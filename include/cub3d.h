@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 15:39:40 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 06:56:55 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_whole
 	double			pa;
 	double			pdx;
 	double			pdy;
+	bool			moved;
 	char			*given_map;
 	t_map			*map;
 	t_ray			*ray;
