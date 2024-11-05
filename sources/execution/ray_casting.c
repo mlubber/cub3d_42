@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 16:21:14 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 07:59:07 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	raycasting(t_whole *whole)
 	whole->ray->ra = whole->pa - (DR * 30);
 	change_degrees(whole);
 	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height * 2);
-	while (r < 60)
+	while (r < 240)
 	{
 		calculate_ray_vertical_line(whole);
 		check_hit_wall_vertical(whole, 0);
@@ -155,13 +155,16 @@ void	raycasting(t_whole *whole)
 		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
 		draw_ray(whole, 0);
-		wall = (whole->height * TILE) / (int)whole->ray->r_dist;
+		if ((int)whole->ray->r_dist != 0)
+			wall = (whole->height * TILE) / (int)whole->ray->r_dist;
+		else
+			wall = whole->height;
 		if (wall > whole->height)
 			wall = whole->height;
-		draw_v_line(whole, 30, wall, r);
+		draw_v_line(whole, whole->width / 240, wall, r);
 		printf("%d\n", wall);
 		r++;
-		whole->ray->ra += DR;
+		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);
 	}
 	mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0);
