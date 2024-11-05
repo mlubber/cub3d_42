@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 16:21:55 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/05 09:21:07 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,26 +112,23 @@ void	calculate_ray_horizonal_line(t_whole *whole)
 	}
 }
 
-void	draw_3d_wall(t_whole *whole, int r)
+void	draw_v_line(t_whole *whole, int width, int height, int r)
 {
-	double	line_h;
-	int		x;
-	int		y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-	line_h = (whole->height) / whole->ray->dist;
-	if (line_h > (whole->height))
-		line_h = (whole->height);
-	if (x < 2000)
+	while (y < height)
 	{
-		while (y < 2600 && y < line_h)
+		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - height / 2) + y, 0xFF0000FF);
+		y++;
+		if (y + 1 == height)
 		{
-			mlx_put_pixel(whole->ray_image,
-				(1000 + x + r),
-				(1200 + y + r),
-				0xFF0000FF);
-			y++;
+			y = 0;
+			x++;
+			if (x == width)
+				break ;
 		}
 	}
 }
@@ -139,14 +136,16 @@ void	draw_3d_wall(t_whole *whole, int r)
 void	raycasting(t_whole *whole)
 {
 	int	r;
+	int wall;
 
 	r = 0;
+	whole->ray->r_dist = 0;
 	if (whole->ray_image)
 		mlx_delete_image(whole->mlx, whole->ray_image);
 	whole->ray->ra = whole->pa - (DR * 30);
 	change_degrees(whole);
-	whole->ray_image = mlx_new_image(whole->mlx, whole->height * 2, whole->width);
-	while (r < 60)
+	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height * 2);
+	while (r < 240)
 	{
 		calculate_ray_vertical_line(whole);
 		check_hit_wall_vertical(whole, 0);
@@ -155,8 +154,16 @@ void	raycasting(t_whole *whole)
 		set_ray_to_draw(whole);
 		//draw_3d_wall(whole, r);
 		draw_ray(whole, 0);
+		if ((int)whole->ray->r_dist != 0)
+			wall = (whole->height * TILE) / (int)whole->ray->r_dist;
+		else
+			wall = whole->height;
+		if (wall > whole->height)
+			wall = whole->height;
+		draw_v_line(whole, whole->width / 240, wall, r);
+		printf("%d\n", wall);
 		r++;
-		whole->ray->ra += DR;
+		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);
 	}
 	mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0);

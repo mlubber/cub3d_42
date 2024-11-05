@@ -6,14 +6,14 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 13:12:54 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/05 09:20:43 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define TILE 80
+# define TILE 64
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159265359
@@ -66,7 +66,7 @@ typedef struct s_ray
 	double	ra;
 	double	ry;
 	double	rx;
-	double	dist;
+	double	r_dist;
 }	t_ray;
 
 typedef struct s_whole
@@ -74,8 +74,11 @@ typedef struct s_whole
 	mlx_t			*mlx;
 	mlx_image_t		*ray_image;
 	mlx_image_t		*image;
+	mlx_image_t		*line;
 	mlx_image_t		*floor;
 	mlx_image_t		*wall;
+	mlx_image_t		*ceiling;
+	mlx_image_t		*ground;
 	mlx_image_t		*no_img;
 	mlx_image_t		*so_img;
 	mlx_image_t		*we_img;
@@ -87,8 +90,8 @@ typedef struct s_whole
 	char			*cub_t_ea;
 	char			*cub_color_f;
 	char			*cub_color_c;
-	uint32_t		f_hex;
 	uint32_t		c_hex;
+	uint32_t		g_hex;
 	int				empty_file;
 	int				all_zeros;
 	int				access_all_zeros;
@@ -103,6 +106,7 @@ typedef struct s_whole
 	double			pa;
 	double			pdx;
 	double			pdy;
+	bool			moved;
 	char			*given_map;
 	t_map			*map;
 	t_ray			*ray;
