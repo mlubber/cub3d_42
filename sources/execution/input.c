@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 06:58:36 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 09:46:59 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ static void	rotate(t_whole *whole, char direction)
 {
 	if (direction == 'L')
 	{
-		whole->pa -= 0.1;
+		whole->pa -= 0.05;
 		if (whole->pa < 0)
 			whole->pa += 2 * PI;
 	}
 	else
 	{
-		whole->pa += 0.1;
+		whole->pa += 0.05;
 		if (whole->pa > 2 * PI)
 			whole->pa -= 2 * PI;
 	}

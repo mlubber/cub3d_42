@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:45:16 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 07:06:26 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 10:07:32 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,20 @@ void	change_degrees(t_whole *whole)
 
 void	set_ray_to_draw(t_whole *whole)
 {
+	whole->ray->horizontal = false;
+	whole->ray->vertical = false;
 	if (whole->ray->h_dist < whole->ray->v_dist)
 	{
 		whole->ray->rx = whole->ray->h_rx;
 		whole->ray->ry = whole->ray->h_ry;
 		whole->ray->r_dist = fix_fisheye(whole, whole->ray->h_dist);
+		whole->ray->horizontal = true;
 	}
 	else
 	{
 		whole->ray->rx = whole->ray->v_rx;
 		whole->ray->ry = whole->ray->v_ry;
 		whole->ray->r_dist = fix_fisheye(whole, whole->ray->v_dist);
+		whole->ray->vertical = true;
 	}
 }

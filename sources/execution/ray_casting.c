@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 09:13:01 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 10:18:46 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,32 @@ void	calculate_ray_horizonal_line(t_whole *whole)
 
 void	draw_v_line(t_whole *whole, int width, int height, int r)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	int			colour;
 
 	x = 0;
 	y = 0;
+	// printf("ray angle: %f\n", whole->ray->ra);
+	// if (whole->ray->ra > (0.25 * PI) && whole->ray->ra < (0.75 * PI))
+	// 	colour = 0xFFFF00FF;
+	// else
+	// 	colour = 0xFF0000FF;
+	if (whole->ray->horizontal == true && (whole->ray->ra > PI && whole->ray->ra < (2 * PI)))
+		colour = 0xFFFF00FF;
+	else if (whole->ray->horizontal == true && (whole->ray->ra > 0 && whole->ray->ra < PI))
+		colour = 0x00FF00FF;
+	else if (whole->ray->vertical == true && (whole->ray->ra > (0.5 * PI) && whole->ray->ra < (1.5 * PI)))
+		colour = 0x0000FFFF;
+	else
+		colour = 0xFF0000FF;
+	// else if (whole->ray->vertical == true)
+	// 	colour = 0xFF0000FF;
+	// else if (whole->ray->vertical == true)
+	// 	colour = 0xFF0000FF;
 	while (y < height)
 	{
-		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - height / 2) + y, 0xFF0000FF);
+		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - height / 2) + y, colour);
 		y++;
 		if (y + 1 == height)
 		{
@@ -160,7 +178,7 @@ void	raycasting(t_whole *whole)
 		if (wall > whole->height)
 			wall = whole->height;
 		draw_v_line(whole, whole->width / 240, wall, r);
-		printf("%d\n", wall);
+		// printf("%d\n", wall);
 		r++;
 		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);
