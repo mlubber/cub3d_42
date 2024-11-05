@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 13:10:06 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 13:12:54 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_ray
 	double	ra;
 	double	ry;
 	double	rx;
+	double	dist;
 }	t_ray;
 
 typedef struct s_whole

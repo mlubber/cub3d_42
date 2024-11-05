@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/28 08:21:42 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 12:02:28 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 16:24:47 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,7 @@ void	draw_ray(t_whole *whole, int i)
 			0xFF0000FF);
 		i++;
 	}
+	printf("i is (%d)\n", i);
+	printf("steps is (%d)\n", steps);
+	printf("end draw ray\n\n\n\n\n");
 }

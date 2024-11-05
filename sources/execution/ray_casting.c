@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 13:01:56 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 16:21:55 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,30 @@ void	calculate_ray_horizonal_line(t_whole *whole)
 	}
 }
 
+void	draw_3d_wall(t_whole *whole, int r)
+{
+	double	line_h;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	line_h = (whole->height) / whole->ray->dist;
+	if (line_h > (whole->height))
+		line_h = (whole->height);
+	if (x < 2000)
+	{
+		while (y < 2600 && y < line_h)
+		{
+			mlx_put_pixel(whole->ray_image,
+				(1000 + x + r),
+				(1200 + y + r),
+				0xFF0000FF);
+			y++;
+		}
+	}
+}
+
 void	raycasting(t_whole *whole)
 {
 	int	r;
@@ -121,7 +145,7 @@ void	raycasting(t_whole *whole)
 		mlx_delete_image(whole->mlx, whole->ray_image);
 	whole->ray->ra = whole->pa - (DR * 30);
 	change_degrees(whole);
-	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height);
+	whole->ray_image = mlx_new_image(whole->mlx, whole->height * 2, whole->width);
 	while (r < 60)
 	{
 		calculate_ray_vertical_line(whole);
@@ -129,6 +153,7 @@ void	raycasting(t_whole *whole)
 		calculate_ray_horizonal_line(whole);
 		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
+		//draw_3d_wall(whole, r);
 		draw_ray(whole, 0);
 		r++;
 		whole->ray->ra += DR;

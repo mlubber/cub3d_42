@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/04 15:55:12 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	init_pa(t_whole *whole)
 
 int	init_window(t_whole *whole)
 {
-	whole->mlx = mlx_init(whole->width, whole->height, "CUB3D", false);
+	whole->mlx = mlx_init(whole->height * 2, whole->width, "CUB3D", false);
 	if (!whole->mlx)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
