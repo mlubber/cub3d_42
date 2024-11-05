@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 07:59:07 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 09:13:01 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,24 +114,22 @@ void	calculate_ray_horizonal_line(t_whole *whole)
 
 void	draw_v_line(t_whole *whole, int width, int height, int r)
 {
-	int	i;
 	int	x;
 	int	y;
 
 	x = 0;
 	y = 0;
-	i = 0;
 	while (y < height)
 	{
 		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - height / 2) + y, 0xFF0000FF);
+		y++;
 		if (y + 1 == height)
 		{
 			y = 0;
 			x++;
-			if (x + 1 == width)
+			if (x == width)
 				break ;
 		}
-		y++;
 	}
 }
 

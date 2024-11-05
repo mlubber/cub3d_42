@@ -2,7 +2,7 @@
 
 
 F 220,100,0
-C 225,30,0
+C 225,225,225
 
 NO ./textures/player.png
 

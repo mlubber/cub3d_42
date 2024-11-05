@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:54:50 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:26:58 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/05 08:04:09 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	hexconvert(t_whole *whole, int i, int r, int g)
 		if (i == 0)
 			whole->c_hex = hex_str_to_uint32(hex);
 		if (i == 1)
-			whole->f_hex = hex_str_to_uint32(hex);
+			whole->g_hex = hex_str_to_uint32(hex);
 		i++;
 	}
 	return (0);

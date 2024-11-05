@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 06:56:55 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 08:07:50 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_whole
 	mlx_image_t		*line;
 	mlx_image_t		*floor;
 	mlx_image_t		*wall;
+	mlx_image_t		*ceiling;
+	mlx_image_t		*ground;
 	mlx_image_t		*no_img;
 	mlx_image_t		*so_img;
 	mlx_image_t		*we_img;
@@ -88,8 +90,8 @@ typedef struct s_whole
 	char			*cub_t_ea;
 	char			*cub_color_f;
 	char			*cub_color_c;
-	uint32_t		f_hex;
 	uint32_t		c_hex;
+	uint32_t		g_hex;
 	int				empty_file;
 	int				all_zeros;
 	int				access_all_zeros;
