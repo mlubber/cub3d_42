@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 09:21:07 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/06 08:23:57 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,18 @@ void	calculate_ray_horizonal_line(t_whole *whole)
 	}
 }
 
-void	draw_v_line(t_whole *whole, int width, int height, int r)
+void	draw_v_line(t_whole *whole, int width, int wall_height, int r)
 {
 	int	x;
 	int	y;
 
-	x = 0;
 	y = 0;
-	while (y < height)
+	x = 0;
+	while (y < wall_height)
 	{
-		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - height / 2) + y, 0xFF0000FF);
+		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - wall_height / 2) + y, 0x0000ffff);
 		y++;
-		if (y + 1 == height)
+		if (y + 1 == wall_height)
 		{
 			y = 0;
 			x++;
@@ -131,7 +131,10 @@ void	draw_v_line(t_whole *whole, int width, int height, int r)
 				break ;
 		}
 	}
+	printf("end draw_v_line\n");
+	whole->count++;
 }
+
 
 void	raycasting(t_whole *whole)
 {
@@ -152,7 +155,6 @@ void	raycasting(t_whole *whole)
 		calculate_ray_horizonal_line(whole);
 		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
-		//draw_3d_wall(whole, r);
 		draw_ray(whole, 0);
 		if ((int)whole->ray->r_dist != 0)
 			wall = (whole->height * TILE) / (int)whole->ray->r_dist;

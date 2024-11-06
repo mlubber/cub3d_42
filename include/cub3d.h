@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 09:20:43 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/05 10:43:52 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ typedef struct s_whole
 	mlx_image_t		*we_img;
 	mlx_image_t		*ea_img;
 	mlx_texture_t	*texture;
+	mlx_texture_t	*so_texture;
+	mlx_texture_t	*no_texture;
+	mlx_texture_t	*ea_texture;
+	mlx_texture_t	*we_texture;
+	int				count;
 	char			*cub_t_no;
 	char			*cub_t_so;
 	char			*cub_t_we;
