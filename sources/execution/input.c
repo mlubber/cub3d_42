@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 09:46:59 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/11 07:32:06 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,34 @@
 
 static void	collision_check(t_whole *whole, double x, double y)
 {
+	int		i;
+	int		x_incr;
+	int		y_incr;
+
+	x_incr = (int)whole->player_x - (int)x;
+	y_incr = (int)whole->player_y - (int)y;
 	if (whole->map->tiles[(int)(y / TILE)][(int)(x / TILE)].symbol != '1')
 	{
 		whole->player_x = x;
 		whole->player_y = y;
-		whole->image->instances[0].x = (int)whole->player_x;
-		whole->image->instances[0].y = (int)whole->player_y;
+		// whole->image->instances[0].x = (int)whole->player_x;
+		// whole->image->instances[0].y = (int)whole->player_y;
+		// printf("inst_x: %d\n", whole->image->instances[0].x);
+		// printf("inst_y: %d\n", whole->image->instances[0].y);
+		i = 0;
+		while (i < whole->k)
+		{
+			whole->wall->instances[i].x += x_incr;
+			whole->wall->instances[i].y += y_incr;
+			i++;
+		}
+		i = 0;
+		while (i < whole->l)
+		{
+			whole->floor->instances[i].x += x_incr;
+			whole->floor->instances[i].y += y_incr;
+			i++;
+		}
 		whole->moved = true;
 	}
 }

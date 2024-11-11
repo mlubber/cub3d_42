@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 10:07:08 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/11 07:42:13 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct s_whole
 	int				column;
 	double			player_x;
 	double			player_y;
+	double			player_x_start;
+	double			player_y_start;
 	int				width;
 	int				height;
 	char			player_dir;
@@ -109,6 +111,8 @@ typedef struct s_whole
 	double			pdx;
 	double			pdy;
 	bool			moved;
+	int 			k;
+	int				l;
 	char			*given_map;
 	t_map			*map;
 	t_ray			*ray;

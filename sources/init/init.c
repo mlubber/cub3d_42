@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 08:20:54 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/11 07:53:25 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	put_map(t_whole *whole)
 		return (EXIT_FAILURE);
 	}
 	i = 0;
+	whole->k = 0;
+	whole->l = 0;
 	while (i < whole->rows)
 	{
 		j = 0;
@@ -45,6 +47,7 @@ int	put_map(t_whole *whole)
 					printf("%s\n", mlx_strerror(mlx_errno));
 					return (EXIT_FAILURE);
 				}
+				whole->k++;
 			}
 			else if (whole->map->tiles[i][j].symbol == '0' || whole->map->tiles[i][j].symbol == ' ')
 			{
@@ -54,6 +57,7 @@ int	put_map(t_whole *whole)
 					printf("%s\n", mlx_strerror(mlx_errno));
 					return (EXIT_FAILURE);
 				}
+				whole->l++;
 			}
 			else
 			{
@@ -63,32 +67,33 @@ int	put_map(t_whole *whole)
 					printf("%s\n", mlx_strerror(mlx_errno));
 					return (EXIT_FAILURE);
 				}
+				whole->l++;
 			}
 			j++;
 		}
 		i++;
 	}
-	whole->ceiling = ft_draw_rect(whole->mlx, whole->width, whole->height, whole->c_hex);
+	whole->ceiling = ft_draw_rect(whole->mlx, 1920, whole->height / 2, whole->c_hex);
 	if (!whole->ceiling)
 	{
 		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(whole->mlx, whole->ceiling, 0, whole->height) == -1)
+	if (mlx_image_to_window(whole->mlx, whole->ceiling, whole->width, 0) == -1)
 	{
 		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	whole->ground = ft_draw_rect(whole->mlx, whole->width, whole->height / 2, whole->g_hex);
+	whole->ground = ft_draw_rect(whole->mlx, 1920, whole->height / 2, whole->g_hex);
 	if (!whole->ground)
 	{
 		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(whole->mlx, whole->ground, 0, whole->height + whole->height / 2) == -1)
+	if (mlx_image_to_window(whole->mlx, whole->ground, whole->width, whole->height / 2) == -1)
 	{
 		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
@@ -102,8 +107,8 @@ int	put_map(t_whole *whole)
 		return (EXIT_FAILURE);
 	}
 	if (mlx_image_to_window(whole->mlx, whole->image,
-			(int)whole->player_x,
-			(int)whole->player_y) == -1)
+			(int)whole->player_x - 5,
+			(int)whole->player_y - 5) == -1)
 	{
 		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
@@ -128,7 +133,7 @@ void	init_pa(t_whole *whole)
 
 int	init_window(t_whole *whole)
 {
-	whole->mlx = mlx_init(whole->width, whole->height * 2, "CUB3D", false);
+	whole->mlx = mlx_init(whole->width + 1920, whole->height, "CUB3D", false);
 	if (!whole->mlx)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
@@ -142,7 +147,5 @@ int	init_window(t_whole *whole)
 	if (!whole->ray)
 		print_error(whole, "allocation");
 	raycasting(whole);
-	printf("maplines: %d\n", whole->rows);
-	printf("height: %d\n", whole->height);
 	return (EXIT_SUCCESS);
 }

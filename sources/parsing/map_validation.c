@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 15:00:12 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/05 14:53:17 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	check_textures(t_whole *whole, char c)
 {
+
 	whole->texture = mlx_load_png(whole->cub_t_no);
 	if (whole->texture == NULL)
 		free_all(whole, 1);

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 10:18:46 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/11 08:08:50 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,26 +120,17 @@ void	draw_v_line(t_whole *whole, int width, int height, int r)
 
 	x = 0;
 	y = 0;
-	// printf("ray angle: %f\n", whole->ray->ra);
-	// if (whole->ray->ra > (0.25 * PI) && whole->ray->ra < (0.75 * PI))
-	// 	colour = 0xFFFF00FF;
-	// else
-	// 	colour = 0xFF0000FF;
 	if (whole->ray->horizontal == true && (whole->ray->ra > PI && whole->ray->ra < (2 * PI)))
-		colour = 0xFFFF00FF;
+		colour = 0x000098FF;
 	else if (whole->ray->horizontal == true && (whole->ray->ra > 0 && whole->ray->ra < PI))
-		colour = 0x00FF00FF;
+		colour = 0x000098FF;
 	else if (whole->ray->vertical == true && (whole->ray->ra > (0.5 * PI) && whole->ray->ra < (1.5 * PI)))
-		colour = 0x0000FFFF;
+		colour = 0x0035D0FF;
 	else
-		colour = 0xFF0000FF;
-	// else if (whole->ray->vertical == true)
-	// 	colour = 0xFF0000FF;
-	// else if (whole->ray->vertical == true)
-	// 	colour = 0xFF0000FF;
+		colour = 0x0035D0FF;
 	while (y < height)
 	{
-		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - height / 2) + y, colour);
+		mlx_put_pixel(whole->ray_image, ((r * width) + x) + whole->width, (whole->height / 2 - height / 2) + y, colour);
 		y++;
 		if (y + 1 == height)
 		{
@@ -162,7 +153,8 @@ void	raycasting(t_whole *whole)
 		mlx_delete_image(whole->mlx, whole->ray_image);
 	whole->ray->ra = whole->pa - (DR * 30);
 	change_degrees(whole);
-	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height * 2);
+	whole->ray_image = mlx_new_image(whole->mlx, whole->width + 1920, whole->height * 2);
+	// draw_ray(whole, 0);
 	while (r < 240)
 	{
 		calculate_ray_vertical_line(whole);
@@ -170,14 +162,14 @@ void	raycasting(t_whole *whole)
 		calculate_ray_horizonal_line(whole);
 		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
-		draw_ray(whole, 0);
+		// draw_ray(whole, 0);
 		if ((int)whole->ray->r_dist != 0)
 			wall = (whole->height * TILE) / (int)whole->ray->r_dist;
 		else
 			wall = whole->height;
 		if (wall > whole->height)
 			wall = whole->height;
-		draw_v_line(whole, whole->width / 240, wall, r);
+		draw_v_line(whole, 8, wall, r);
 		// printf("%d\n", wall);
 		r++;
 		whole->ray->ra += (0.25 * DR);

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:54:50 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 08:04:09 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/05 11:16:45 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	hexconvert(t_whole *whole, int i, int r, int g)
 	{
 		if (i == 0)
 			rgb = ft_split(whole->cub_color_c, ',');
-		if (i == 1)
+		else
 			rgb = ft_split(whole->cub_color_f, ',');
 		if (check_split(rgb))
 			print_error(whole, "color");
