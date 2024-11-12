@@ -6,44 +6,131 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/11 07:32:06 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 11:38:58 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+// static void	collision_check(t_whole *whole, double x, double y)
+// {
+// 	int		i;
+// 	int		x_incr;
+// 	int		y_incr;
+// 	int		xo;
+// 	int		yo;
+
+// 	x_incr = (int)whole->player_x - (int)x;
+// 	y_incr = (int)whole->player_y - (int)y;
+// 	if (whole->pdx < 0)
+// 		xo = -(TILE / 4);
+// 	else
+// 		xo = (TILE / 4);
+// 	if (whole->pdy < 0)
+// 		yo = -(TILE / 4);
+// 	else
+// 		yo = (TILE / 4);
+// 	if (whole->map->tiles[(int)((y + yo) / TILE)][(int)((x + xo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y) / TILE)][(int)((x + xo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y + yo) / TILE)][(int)((x) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y - yo) / TILE)][(int)((x - xo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y) / TILE)][(int)((x - xo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y - yo) / TILE)][(int)((x) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y - xo) / TILE)][(int)((x + yo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y) / TILE)][(int)((x + yo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y - xo) / TILE)][(int)((x) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y + xo) / TILE)][(int)((x - yo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y) / TILE)][(int)((x - yo) / TILE)].symbol != '1'
+// 		&& whole->map->tiles[(int)((y + xo) / TILE)][(int)((x) / TILE)].symbol != '1')
+// 	{
+// 		whole->player_x = x;
+// 		whole->player_y = y;
+// 		// whole->image->instances[0].x = (int)whole->player_x - 5;
+// 		// whole->image->instances[0].y = (int)whole->player_y - 5;
+// 		// printf("inst_x: %d\n", whole->image->instances[0].x);
+// 		// printf("inst_y: %d\n", whole->image->instances[0].y);
+// 		i = 0;
+// 		while (i < whole->k)
+// 		{
+// 			// whole->wall->instances[i].x += x_incr;
+// 			// whole->wall->instances[i].y += y_incr;
+// 			i++;
+// 		}
+// 		i = 0;
+// 		while (i < whole->l)
+// 		{
+// 			// whole->floor->instances[i].x += x_incr;
+// 			// whole->floor->instances[i].y += y_incr;
+// 			i++;
+// 		}
+// 	}
+// 	// else
+// 	// {
+// 	// 	if (whole->map->tiles[(int)((y) / TILE)][(int)((x + xo) / TILE)].symbol != '1')
+// 	// 	{
+// 	// 		whole->player_x = x;
+// 	// 		// whole->image->instances[0].x = (int)whole->player_x - 5;
+// 	// 	}
+// 	// 	if (whole->map->tiles[(int)((y + yo) / TILE)][(int)((x) / TILE)].symbol != '1')
+// 	// 	{
+// 	// 		whole->player_y = y;
+// 	// 		// whole->image->instances[0].y = (int)whole->player_y - 5;
+// 	// 	}
+// 	// }
+// 	whole->image->instances[0].x = (int)whole->player_x - 5;
+// 	whole->image->instances[0].y = (int)whole->player_y - 5;
+// 	whole->moved = true;
+// }
+
+static int	clear_in_all_directions(t_whole *whole, int x, int y)
+{
+	if (whole->map->tiles[(int)((y)
+			/ TILE)][(int)((x + whole->xo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y + whole->yo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->yo)
+		/ TILE)][(int)((x - whole->xo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y) / TILE)][(int)((x - whole->xo)
+		/ TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->yo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->xo)
+		/ TILE)][(int)((x + whole->yo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y) / TILE)][(int)((x + whole->yo)
+		/ TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->xo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y + whole->xo)
+		/ TILE)][(int)((x - whole->yo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y) / TILE)][(int)((x - whole->yo)
+		/ TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y + whole->xo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1')
+		return (1);
+	return (0);
+}
+
+
 static void	collision_check(t_whole *whole, double x, double y)
 {
-	int		i;
-	int		x_incr;
-	int		y_incr;
-
-	x_incr = (int)whole->player_x - (int)x;
-	y_incr = (int)whole->player_y - (int)y;
-	if (whole->map->tiles[(int)(y / TILE)][(int)(x / TILE)].symbol != '1')
+	if (whole->pdx < 0)
+		whole->xo = -(TILE / 4);
+	else
+		whole->xo = (TILE / 4);
+	if (whole->pdy < 0)
+		whole->yo = -(TILE / 4);
+	else
+		whole->yo = (TILE / 4);
+	if (whole->map->tiles[(int)((y + whole->yo)
+			/ TILE)][(int)((x + whole->xo) / TILE)].symbol != '1'
+		&& clear_in_all_directions(whole, x, y) == 1)
 	{
 		whole->player_x = x;
 		whole->player_y = y;
-		// whole->image->instances[0].x = (int)whole->player_x;
-		// whole->image->instances[0].y = (int)whole->player_y;
-		// printf("inst_x: %d\n", whole->image->instances[0].x);
-		// printf("inst_y: %d\n", whole->image->instances[0].y);
-		i = 0;
-		while (i < whole->k)
-		{
-			whole->wall->instances[i].x += x_incr;
-			whole->wall->instances[i].y += y_incr;
-			i++;
-		}
-		i = 0;
-		while (i < whole->l)
-		{
-			whole->floor->instances[i].x += x_incr;
-			whole->floor->instances[i].y += y_incr;
-			i++;
-		}
-		whole->moved = true;
 	}
+	whole->image->instances[0].x = (int)whole->player_x - 5;
+	whole->image->instances[0].y = (int)whole->player_y - 5;
+	whole->moved = true;
 }
 
 static void	move(t_whole *whole, double x, double y, char direction)
@@ -61,7 +148,7 @@ static void	move(t_whole *whole, double x, double y, char direction)
 	else if (direction == 'L')
 	{
 		x = whole->player_x + whole->pdy;
-		y = whole->player_y - whole->pdx ;
+		y = whole->player_y - whole->pdx;
 	}
 	else
 	{

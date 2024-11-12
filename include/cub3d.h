@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/11 07:42:13 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 11:26:28 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_whole
 	mlx_image_t		*so_img;
 	mlx_image_t		*we_img;
 	mlx_image_t		*ea_img;
+	mlx_image_t		*square;
 	mlx_texture_t	*texture;
 	char			*cub_t_no;
 	char			*cub_t_so;
@@ -113,6 +114,8 @@ typedef struct s_whole
 	bool			moved;
 	int 			k;
 	int				l;
+	int				xo;
+	int				yo;
 	char			*given_map;
 	t_map			*map;
 	t_ray			*ray;
