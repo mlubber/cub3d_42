@@ -1,0 +1,23 @@
+
+
+
+F 0,0,0
+C 225,225,225
+
+NO ./textures/player.png
+
+SO ./textures/player.png
+WE ./textures/player.png
+
+
+EA ./textures/player.png
+
+
+
+
+
+11111111
+10000001
+100E0001
+10000001
+11111111

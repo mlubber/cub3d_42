@@ -6,158 +6,143 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/28 06:37:03 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:35:31 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	init_window(t_data *data)
+int	put_map(t_whole *whole)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
-	if (!data->mlx)
+	int	i;
+	int	j;
+
+	whole->wall = ft_draw_rect(whole->mlx, TILE, TILE, 0xFFFFFFFF);
+	if (!whole->wall)
 	{
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	data->ceiling = ft_draw_rect(data->mlx, WIDTH + 1, HEIGHT, data->c_hex);
-	if (!data->ceiling)
+	whole->floor = ft_draw_rect(whole->mlx, TILE, TILE, 0x000000FF);
+	if (!whole->floor)
 	{
-		mlx_close_window(data->mlx);
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(data->mlx, data->ceiling, 0, 0) == -1)
+	i = 0;
+	while (i < whole->rows)
 	{
-		mlx_close_window(data->mlx);
+		j = 0;
+		while (j < whole->column)
+		{
+			if (whole->map->tiles[i][j].symbol == '1')
+			{
+				if (mlx_image_to_window(whole->mlx, whole->wall, j * TILE, i * TILE) == -1)
+				{
+					mlx_close_window(whole->mlx);
+					printf("%s\n", mlx_strerror(mlx_errno));
+					return (EXIT_FAILURE);
+				}
+			}
+			else if (whole->map->tiles[i][j].symbol == '0' || whole->map->tiles[i][j].symbol == ' ')
+			{
+				if (mlx_image_to_window(whole->mlx, whole->floor, j * TILE, i * TILE) == -1)
+				{
+					mlx_close_window(whole->mlx);
+					printf("%s\n", mlx_strerror(mlx_errno));
+					return (EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				if (mlx_image_to_window(whole->mlx, whole->floor, j * TILE, i * TILE) == -1)
+				{
+					mlx_close_window(whole->mlx);
+					printf("%s\n", mlx_strerror(mlx_errno));
+					return (EXIT_FAILURE);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	whole->ceiling = ft_draw_rect(whole->mlx, whole->width, whole->height, whole->c_hex);
+	if (!whole->ceiling)
+	{
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	data->floor = ft_draw_rect(data->mlx, WIDTH + 1, HEIGHT / 2, data->f_hex);
-	if (!data->floor)
+	if (mlx_image_to_window(whole->mlx, whole->ceiling, 0, whole->height) == -1)
 	{
-		mlx_close_window(data->mlx);
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(data->mlx, data->floor, 0, HEIGHT / 2) == -1)
+	whole->ground = ft_draw_rect(whole->mlx, whole->width, whole->height / 2, whole->g_hex);
+	if (!whole->ground)
 	{
-		mlx_close_window(data->mlx);
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	data->image = mlx_new_image(data->mlx, 32, 32);
-	if (!data->image)
+	if (mlx_image_to_window(whole->mlx, whole->ground, 0, whole->height + whole->height / 2) == -1)
 	{
-		mlx_close_window(data->mlx);
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(data->mlx, data->image, WIDTH / 2 - 16, HEIGHT / 2 - 16) == -1)
+	whole->image = mlx_new_image(whole->mlx, 10, 10);
+	if (!whole->image)
 	{
-		mlx_close_window(data->mlx);
+		mlx_close_window(whole->mlx);
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	if (mlx_image_to_window(whole->mlx, whole->image,
+			(int)whole->player_x,
+			(int)whole->player_y) == -1)
+	{
+		mlx_close_window(whole->mlx);
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
 
-t_data	*malloc_struct(char *map)
+void	init_pa(t_whole *whole)
 {
-	t_data	*data;
+	if (whole->player_dir == 'E')
+		whole->pa = 0;
+	if (whole->player_dir == 'S')
+		whole->pa = 0.5 * PI;
+	if (whole->player_dir == 'W')
+		whole->pa = PI;
+	if (whole->player_dir == 'N')
+		whole->pa = 1.5 * PI;
+	whole->pdx = cos(whole->pa) * SPEED;
+	whole->pdy = sin(whole->pa) * SPEED;
+}
 
-	data = ft_calloc(1, sizeof(t_data));
-	if (!data)
-		error_exit("alloc");
-	data->map = ft_calloc(1, sizeof(t_map));
-	if (!data->map)
+int	init_window(t_whole *whole)
+{
+	whole->mlx = mlx_init(whole->width, whole->height * 2, "CUB3D", false);
+	if (!whole->mlx)
 	{
-		free(data);
-		error_exit("alloc");
+		printf("%s\n", mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
 	}
-	data->input_map = map;
-	return (data);
-}
-
-void	init_struct(t_data *data)
-{
-	data->c_hex = hexconvert(data->ceiling_str);
-	data->f_hex = hexconvert(data->floor_str);
-}
-
-int	compare_and_store(t_data *data, char *line, char *prefix)
-{
-	if (!ft_strncmp(line, prefix, ft_strlen(prefix)))
-	{
-		if (prefix[0] == 'N')
-			data->no_str = line + ft_strlen(prefix);
-		if (prefix[0] == 'S')
-			data->so_str = line + ft_strlen(prefix);
-		if (prefix[0] == 'W')
-			data->we_str = line + ft_strlen(prefix);
-		if (prefix[0] == 'E')
-			data->ea_str = line + ft_strlen(prefix);
-		if (prefix[0] == 'C')
-			data->ceiling_str = line + ft_strlen(prefix);
-		if (prefix[0] == 'F')
-			data->floor_str = line + ft_strlen(prefix);
-		return (1);
-	}
-	return (0);
-}
-
-int	save_element(t_data *data, char *line)
-{
-	int	result;
-
-	result = compare_and_store(data, line, "NO ");
-	result = compare_and_store(data, line, "SO ");
-	result = compare_and_store(data, line, "WE ");
-	result = compare_and_store(data, line, "EA ");
-	result = compare_and_store(data, line, "C ");
-	result = compare_and_store(data, line, "F ");
-
-	return (result);
-}
-
-void	check_element(t_data *data, char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && is_whitespace(line[i]) && line[i] != '\n')
-		i++;
-	while (line[i] && line[i] != '\n')
-	{
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
-			|| line[i] == 'E' || line[i] == 'F' || line[i] == 'C')
-		{
-			save_element(data, line);
-			break ;
-		}
-		else
-		i++;
-	}
-}
-
-void	check_file(t_data *data)
-{
-	int		fd;
-	int		i;
-	char	*line;
-
-	fd = open(data->input_map, O_RDONLY);
-	if (fd < 0)
-		malloc_or_open_failed(data, 2);
-	line = get_next_line(fd);
-	i = 0;
-	while (line != NULL)
-	{
-		check_element(data, line);
-		printf("%s", line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	printf("\n");
-	close(fd);
+	init_pa(whole);
+	check_textures(whole, 'S');
+	if (put_map(whole) == 1)
+		return (EXIT_FAILURE);
+	whole->ray = ft_calloc(1, sizeof(t_ray));
+	if (!whole->ray)
+		print_error(whole, "allocation");
+	raycasting(whole);
+	printf("maplines: %d\n", whole->rows);
+	printf("height: %d\n", whole->height);
+	return (EXIT_SUCCESS);
 }

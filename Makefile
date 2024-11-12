@@ -1,35 +1,48 @@
 # Name
-NAME				= cub3D
+NAME				=	cub3D
 
 # Directories
-SRC_DIR				= sources/
-BLD_DIR				= build/
-OBJ_DIR				= ./build/objects/
-LIBMLX				= ./libraries/MLX42
-LIBFT				= ./libraries/libft/libft.a
-INC					= -I ./include -I $(LIBMLX)/include
+SRC_DIR				=	sources/
+BLD_DIR				=	build/
+OBJ_DIR				=	./build/objects/
+LIBMLX				=	./libraries/MLX42
+LIBFT				=	./libraries/libft/libft.a
+INC					=	-I ./include -I $(LIBMLX)/include
 
 # Compiler and CFlags
-CC					= cc
-CFLAGS				= -g -Wall -Wextra -Werror -Wunreachable-code -Ofast -fsanitize=address
-MLXFLAGS			= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -fsanitize=address
-RM					= rm -f
+CC					=	cc
+CFLAGS				=	-g -Wall -Wextra -Werror -Wunreachable-code -Ofast -fsanitize=address
+MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -fsanitize=address
+RM					=	rm -f
 
 # Source Files
-MAIN_DIR			= $(SRC_DIR)main.c
+MAIN_DIR			=	$(SRC_DIR)main.c
 
-UTILS_DIR			= $(SRC_DIR)utils/utils.c \
-					  $(SRC_DIR)utils/draw.c \
-					  $(SRC_DIR)utils/convert.c \
-					  $(SRC_DIR)utils/free.c \
+PARSING_DIR			=	$(SRC_DIR)parsing/check_file.c \
+						$(SRC_DIR)parsing/process_element.c \
+						$(SRC_DIR)parsing/check_scenario.c \
+						$(SRC_DIR)parsing/linklist_xy_instance.c \
+						$(SRC_DIR)parsing/map_validation.c \
+						$(SRC_DIR)parsing/depth_first_search.c \
+						$(SRC_DIR)parsing/map_check_charater_duplicate.c \
+						$(SRC_DIR)parsing/map_allocation_filling.c \
+						$(SRC_DIR)parsing/color_validation.c
 
-INIT_DIR			= $(SRC_DIR)init/init.c
+UTILS_DIR			=	$(SRC_DIR)utils/free_exit.c \
+						$(SRC_DIR)utils/draw.c \
+						$(SRC_DIR)utils/utils.c
+
+EXEC_DIR			=	$(SRC_DIR)execution/input.c \
+						$(SRC_DIR)execution/ray_casting.c \
+						$(SRC_DIR)execution/ray_cast_utils.c
+
+INIT_DIR			=	$(SRC_DIR)init/init.c
 
 # Concatenate all source files
-SRCS				= $(MAIN_DIR) $(UTILS_DIR) $(INIT_DIR)
+SRCS 				=	$(MAIN_DIR) $(PARSING_DIR) $(UTILS_DIR) $(INIT_DIR) $(EXEC_DIR)
 
 # Apply the pattern substitution to each source file in SRC and produce a corresponding list of object files in the OBJ_DIR
-OBJS 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
+OBJS 				=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 start:
 					@make all
