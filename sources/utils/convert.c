@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:26:14 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/10/22 14:52:15 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:49:53 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,5 @@ uint32_t	hexconvert(char *str)
 	b = ft_atoi(rgb[2]);
 	free_array(rgb);
 	rgb_to_hex(r, g, b, hex);
-	// printf("%s\n", hex);
 	return (hex_str_to_uint32(hex));
 }

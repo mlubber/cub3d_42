@@ -6,13 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:52:20 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:40:39 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:49:29 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	fill_with_space(t_whole *whole, int i, int j)
+static int	fill_with_space(t_whole *whole, int i, int j)
 {
 	while (i < whole->column)
 	{
@@ -22,7 +22,7 @@ int	fill_with_space(t_whole *whole, int i, int j)
 	return (i);
 }
 
-int	fill_with_string(t_whole *whole, char *str, int i, int j)
+static int	fill_with_string(t_whole *whole, char *str, int i, int j)
 {
 	while (str[i] && str[i] != '\n')
 	{
@@ -32,7 +32,7 @@ int	fill_with_string(t_whole *whole, char *str, int i, int j)
 	return (i);
 }
 
-void	fill_map(t_whole *whole, int i, int j, int fd)
+static void	fill_map(t_whole *whole, int i, int j, int fd)
 {
 	char	*str;
 

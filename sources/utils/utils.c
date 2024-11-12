@@ -6,11 +6,24 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:40:44 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:50:37 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	ft_free_map_from_n(t_map *map, int line)
+{
+	int	i;
+
+	i = 0;
+	while (i < line)
+	{
+		free(map->tiles[i]);
+		i++;
+	}
+	free(map->tiles);
+}
 
 void	read_line_until_end(int fd)
 {
@@ -27,7 +40,7 @@ void	read_line_until_end(int fd)
 	close(fd);
 }
 
-char	*free_array(char **strlist)
+void	free_array(char **strlist)
 {
 	int	i;
 
@@ -38,7 +51,6 @@ char	*free_array(char **strlist)
 		i++;
 	}
 	free(strlist);
-	return (NULL);
 }
 
 int	check_split(char **split)

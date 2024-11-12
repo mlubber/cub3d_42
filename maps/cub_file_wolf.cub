@@ -1,14 +1,14 @@
 
 
-NO ./textures/window_texture_00.png
-SO ./textures/clue_texture_00.png
-WE ./textures/fish_texture_00.png
-EA ./textures/penguin_texture_00.png
+NO ./textures/north_texture.png
+SO ./textures/south_texture.png
+WE ./textures/west_texture.png
+EA ./textures/east_texture.png
 
 
 
-F 200,200,132
-C 16,13,97
+F 112,112,112
+C 56,56,56
 
 
         1111111111111111111111111
