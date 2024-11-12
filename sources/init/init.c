@@ -6,20 +6,29 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 13:11:34 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:20:51 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
+int	error_close_window(t_whole *whole)
+{
+	mlx_close_window(whole->mlx);
+	printf("%s\n", mlx_strerror(mlx_errno));
+	return (EXIT_FAILURE);
+}
+
+static void	*ft_draw_rect(t_whole *whole, uint32_t width, uint32_t height,
 		uint32_t color)
 {
 	mlx_image_t	*image;
 	uint32_t	x;
 	uint32_t	y;
 
-	image = mlx_new_image(mlx, width, height);
+	image = mlx_new_image(whole->mlx, width, height);
+	if (!image)
+		error_close_window(whole);
 	x = 0;
 	y = 0;
 	while (y < height)
@@ -37,22 +46,15 @@ void	*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
 	return (image);
 }
 
-int	error_close_window(t_whole *whole)
+static int	put_background(t_whole *whole)
 {
-	mlx_close_window(whole->mlx);
-	printf("%s\n", mlx_strerror(mlx_errno));
-	return (EXIT_FAILURE);
-}
-
-int	put_background(t_whole *whole)
-{
-	whole->ceiling = ft_draw_rect(whole->mlx, whole->width,
+	whole->ceiling = ft_draw_rect(whole, whole->width,
 			whole->height, whole->c_hex);
 	if (!whole->ceiling)
 		return (error_close_window(whole));
 	if (mlx_image_to_window(whole->mlx, whole->ceiling, 0, 0) == -1)
 		return (error_close_window(whole));
-	whole->ground = ft_draw_rect(whole->mlx, whole->width,
+	whole->ground = ft_draw_rect(whole, whole->width,
 			whole->height / 2, whole->g_hex);
 	if (!whole->ground)
 		return (error_close_window(whole));
@@ -62,7 +64,7 @@ int	put_background(t_whole *whole)
 	return (0);
 }
 
-void	init_pa(t_whole *whole)
+static void	init_pa(t_whole *whole)
 {
 	if (whole->player_dir == 'E')
 		whole->pa = 0;

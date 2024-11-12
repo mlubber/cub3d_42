@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 13:38:24 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:24:13 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		check_file(whole, 0, 0, line);
 		hexconvert(whole, 0, 0, 0);
 		if (init_window(whole) == 1)
-			return (EXIT_FAILURE);
+			free_all(whole, 1);
 		mlx_loop_hook(whole->mlx, ft_hook, whole);
 		mlx_loop(whole->mlx);
 		mlx_terminate(whole->mlx);

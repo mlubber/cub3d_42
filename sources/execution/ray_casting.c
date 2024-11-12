@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/12 13:47:19 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:18:24 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ void	raycasting(t_whole *whole)
 	whole->ray->ra = whole->pa - (DR * 30);
 	change_degrees(whole);
 	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height);
+	if (!whole->ray_image)
+		error_close_window(whole);
 	while (r < 240)
 	{
 		calculate_ray_vertical_line(whole);
@@ -134,5 +136,6 @@ void	raycasting(t_whole *whole)
 		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);
 	}
-	mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0);
+	if (mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0) == -1)
+		error_close_window(whole);
 }

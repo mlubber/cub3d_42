@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/12 09:58:26 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:02:23 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:09:35 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void	draw_texture(t_whole *whole, int start_x)
 		}
 		y++;
 	}
-	mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0);
+	if (mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0) == -1)
+		error_close_window(whole);
 }

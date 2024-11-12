@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:02:53 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:06:53 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ double		calculate_distance(double ax, double ay, double bx, double by);
 // Init
 
 int			init_window(t_whole *whole);
+int			error_close_window(t_whole *whole);
 
 // Parsing
 
