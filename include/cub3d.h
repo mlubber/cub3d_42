@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:35:07 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:40:53 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int			check_next_char(t_whole *whole, int y, int x, int direction);
 
 void		call_check_map_and_result(t_whole *whole, int i, char *line);
 
-void		print_map(t_whole *whole);
 int			check_scenario(t_whole *whole, char *line, int fd);
 int			process_element(t_whole *whole, char *line, int i, int fd);
 

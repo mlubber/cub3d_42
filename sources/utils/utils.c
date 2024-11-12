@@ -6,38 +6,11 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:36:28 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:40:44 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-void	print_map(t_whole *whole)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < whole->rows)
-	{
-		j = 0;
-		while (j < whole->column)
-		{
-			printf("%c", whole->map->tiles[i][j].symbol);
-			j++;
-		}
-		printf("\n");
-		i++;
-	if (data->input_map[i] == '.' && ft_strncmp(&data->input_map[i], ".cub",
-			ft_strlen(&data->input_map[i])) == 0)
-		return ;
-	else
-	{
-		free(data->map);
-		free(data);
-		error_exit("ext");
-	}
-}
 
 void	read_line_until_end(int fd)
 {

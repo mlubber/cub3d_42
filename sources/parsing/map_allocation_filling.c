@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:52:20 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:40:39 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	fill_map(t_whole *whole, int i, int j, int fd)
 		j++;
 	}
 	close (fd);
-	print_map(whole);
 }
 
 void	allocate_m_map(t_whole *whole, int i, char *line_to_free)
