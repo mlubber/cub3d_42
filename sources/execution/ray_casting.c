@@ -6,13 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/06 08:23:57 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:47:19 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	check_hit_wall_vertical(t_whole *whole, int i)
+static void	check_hit_wall_vertical(t_whole *whole, int i)
 {
 	int		t_rx;
 	int		t_ry;
@@ -41,7 +41,7 @@ void	check_hit_wall_vertical(t_whole *whole, int i)
 	}
 }
 
-void	calculate_ray_vertical_line(t_whole *whole)
+static void	calculate_ray_vertical_line(t_whole *whole)
 {
 	whole->ray->v_tan = -tan(whole->ray->ra);
 	if (whole->ray->ra > P2 && whole->ray->ra < P3)
@@ -62,7 +62,7 @@ void	calculate_ray_vertical_line(t_whole *whole)
 	}
 }
 
-void	check_hit_wall_horizonal(t_whole *whole, int i)
+static void	check_hit_wall_horizonal(t_whole *whole, int i)
 {
 	int	t_rx;
 	int	t_ry;
@@ -91,7 +91,7 @@ void	check_hit_wall_horizonal(t_whole *whole, int i)
 	}
 }
 
-void	calculate_ray_horizonal_line(t_whole *whole)
+static void	calculate_ray_horizonal_line(t_whole *whole)
 {
 	whole->ray->h_tan = -1 / tan(whole->ray->ra);
 	if (whole->ray->ra > PI)
@@ -112,42 +112,16 @@ void	calculate_ray_horizonal_line(t_whole *whole)
 	}
 }
 
-void	draw_v_line(t_whole *whole, int width, int wall_height, int r)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	x = 0;
-	while (y < wall_height)
-	{
-		mlx_put_pixel(whole->ray_image, (r * width) + x, (whole->height + whole->height / 2 - wall_height / 2) + y, 0x0000ffff);
-		y++;
-		if (y + 1 == wall_height)
-		{
-			y = 0;
-			x++;
-			if (x == width)
-				break ;
-		}
-	}
-	printf("end draw_v_line\n");
-	whole->count++;
-}
-
-
 void	raycasting(t_whole *whole)
 {
 	int	r;
-	int wall;
 
 	r = 0;
-	whole->ray->r_dist = 0;
 	if (whole->ray_image)
 		mlx_delete_image(whole->mlx, whole->ray_image);
 	whole->ray->ra = whole->pa - (DR * 30);
 	change_degrees(whole);
-	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height * 2);
+	whole->ray_image = mlx_new_image(whole->mlx, whole->width, whole->height);
 	while (r < 240)
 	{
 		calculate_ray_vertical_line(whole);
@@ -155,15 +129,7 @@ void	raycasting(t_whole *whole)
 		calculate_ray_horizonal_line(whole);
 		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
-		draw_ray(whole, 0);
-		if ((int)whole->ray->r_dist != 0)
-			wall = (whole->height * TILE) / (int)whole->ray->r_dist;
-		else
-			wall = whole->height;
-		if (wall > whole->height)
-			wall = whole->height;
-		draw_v_line(whole, whole->width / 240, wall, r);
-		printf("%d\n", wall);
+		draw_texture(whole, ((r * 8)));
 		r++;
 		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);

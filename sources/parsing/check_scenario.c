@@ -6,13 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:14:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 08:17:43 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:24:37 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	empty_line_found(t_whole *whole, int fd, int i, char *line_to_free)
+static int	empty_line_found(t_whole *whole, int fd, int i, char *line_to_free)
 {
 	int		temp_map_line;
 	char	*line;
@@ -41,7 +41,7 @@ int	empty_line_found(t_whole *whole, int fd, int i, char *line_to_free)
 	return (0);
 }
 
-char	*escape_lines_before_map(t_whole *whole, char *line, int i, int fd)
+static char	*escape_lines_before_map(t_whole *whole, char *line, int i, int fd)
 {
 	while (i < whole->number_of_line_before_map)
 	{
@@ -55,7 +55,8 @@ char	*escape_lines_before_map(t_whole *whole, char *line, int i, int fd)
 	return (line);
 }
 
-int	check_for_empty_lines(t_whole *whole, char *line_to_free, int i, int j)
+static int	check_for_empty_lines(t_whole *whole, char *line_to_free,
+		int i, int j)
 {
 	int		fd;
 	char	*line;
@@ -82,7 +83,7 @@ int	check_for_empty_lines(t_whole *whole, char *line_to_free, int i, int j)
 	return (0);
 }
 
-void	take_rows_and_column(t_whole *whole, char *line, int fd, int i)
+static void	take_rows_and_column(t_whole *whole, char *line, int fd, int i)
 {
 	int		j;
 	int		longest;
@@ -119,8 +120,8 @@ int	check_scenario(t_whole *whole, char *line, int fd)
 		take_rows_and_column(whole, line, fd, 0);
 		if (check_for_empty_lines(whole, line, 0, 0))
 			return (1);
-		whole->width = whole->column * TILE;
-		whole->height = whole->rows * TILE;
+		whole->width = 1920;
+		whole->height = 1080;
 		allocate_m_map(whole, 0, line);
 	}
 	else

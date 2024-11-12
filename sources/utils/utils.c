@@ -6,29 +6,23 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:01:07 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	print_map(t_whole *whole)
+void	ft_free_map_from_n(t_map *map, int line)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (i < whole->rows)
+	while (i < line)
 	{
-		j = 0;
-		while (j < whole->column)
-		{
-			printf("%c", whole->map->tiles[i][j].symbol);
-			j++;
-		}
-		printf("\n");
+		free(map->tiles[i]);
 		i++;
 	}
+	free(map->tiles);
 }
 
 void	read_line_until_end(int fd)
@@ -46,7 +40,7 @@ void	read_line_until_end(int fd)
 	close(fd);
 }
 
-char	*free_array(char **strlist)
+void	free_array(char **strlist)
 {
 	int	i;
 
@@ -57,7 +51,6 @@ char	*free_array(char **strlist)
 		i++;
 	}
 	free(strlist);
-	return (NULL);
 }
 
 int	check_split(char **split)

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 14:20:14 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/22 16:29:16 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:40:28 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_white_space(char c)
 	return (0);
 }
 
-int	save_line_in_whole(char **which, char *line, int i)
+static int	save_line_in_whole(char **which, char *line, int i)
 {
 	int	newi;
 
@@ -32,14 +32,14 @@ int	save_line_in_whole(char **which, char *line, int i)
 	return (0);
 }
 
-int	save_element(char **element, char *line, int i)
+static int	save_element(char **element, char *line, int i)
 {
 	if (*element == NULL)
 		return (save_line_in_whole(element, line, i + 2));
 	return (2);
 }
 
-int	check_is_already_saved(t_whole *whole, char *line, int i)
+static int	check_is_already_saved(t_whole *whole, char *line, int i)
 {
 	char	*sub;
 

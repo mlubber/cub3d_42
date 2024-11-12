@@ -6,69 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 15:00:12 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 11:02:40 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:34:25 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-// void	check_textures(t_whole *whole, char c)
-// {
-// 	whole->texture = mlx_load_png(whole->cub_t_no);
-// 	if (whole->texture == NULL)
-// 		free_all(whole, 1);
-// 	if (c == 'S')
-// 		whole->no_img = mlx_texture_to_image(whole->mlx, whole->texture);
-// 	mlx_delete_texture(whole->texture);
-// 	whole->texture = mlx_load_png(whole->cub_t_so);
-// 	if (whole->texture == NULL)
-// 		free_all(whole, 1);
-// 	if (c == 'S')
-// 		whole->so_img = mlx_texture_to_image(whole->mlx, whole->texture);
-// 	mlx_delete_texture(whole->texture);
-// 	whole->texture = mlx_load_png(whole->cub_t_we);
-// 	if (whole->texture == NULL)
-// 		free_all(whole, 1);
-// 	if (c == 'S')
-// 		whole->we_img = mlx_texture_to_image(whole->mlx, whole->texture);
-// 	mlx_delete_texture(whole->texture);
-// 	whole->texture = mlx_load_png(whole->cub_t_ea);
-// 	if (whole->texture == NULL)
-// 		free_all(whole, 1);
-// 	if (c == 'S')
-// 		whole->ea_img = mlx_texture_to_image(whole->mlx, whole->texture);
-// 	mlx_delete_texture(whole->texture);
-// }
-
-void	check_textures(t_whole *whole, char c)
-{
-	whole->no_texture = mlx_load_png(whole->cub_t_no);
-	if (whole->no_texture == NULL)
-		free_all(whole, 1);
-	if (c == 'S')
-		whole->no_img = mlx_texture_to_image(whole->mlx, whole->no_texture);
-	//mlx_delete_texture(whole->texture);
-	whole->so_texture = mlx_load_png(whole->cub_t_so);
-	if (whole->so_texture == NULL)
-		free_all(whole, 1);
-	if (c == 'S')
-		whole->so_img = mlx_texture_to_image(whole->mlx, whole->so_texture);
-	//mlx_delete_texture(whole->texture);
-	whole->we_texture = mlx_load_png(whole->cub_t_we);
-	if (whole->we_texture == NULL)
-		free_all(whole, 1);
-	if (c == 'S')
-		whole->we_img = mlx_texture_to_image(whole->mlx, whole->we_texture);
-	//mlx_delete_texture(whole->texture);
-	whole->ea_texture = mlx_load_png(whole->cub_t_ea);
-	if (whole->ea_texture == NULL)
-		free_all(whole, 1);
-	if (c == 'S')
-		whole->ea_img = mlx_texture_to_image(whole->mlx, whole->ea_texture);
-	//mlx_delete_texture(whole->texture);
-}
-
-int	check_edge_line(t_tile **tiles, int index, int limit, int is_row)
+static int	check_edge_line(t_tile **tiles, int index, int limit, int is_row)
 {
 	int		i;
 	char	symbol;
@@ -98,7 +42,7 @@ int	check_edges(t_whole *whole)
 	return (0);
 }
 
-void	check_next_char_out_bounds(t_whole *whole, int *y, int *x)
+static void	check_next_char_out_bounds(t_whole *whole, int *y, int *x)
 {
 	if (*x < 0)
 		*x = 0;

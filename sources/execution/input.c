@@ -6,22 +6,58 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 06:58:36 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 12:01:15 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+static int	clear_in_all_directions(t_whole *whole, int x, int y)
+{
+	if (whole->map->tiles[(int)((y)
+			/ TILE)][(int)((x + whole->xo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y + whole->yo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->yo)
+		/ TILE)][(int)((x - whole->xo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y) / TILE)][(int)((x - whole->xo)
+		/ TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->yo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->xo)
+		/ TILE)][(int)((x + whole->yo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y) / TILE)][(int)((x + whole->yo)
+		/ TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y - whole->xo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y + whole->xo)
+		/ TILE)][(int)((x - whole->yo) / TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y) / TILE)][(int)((x - whole->yo)
+		/ TILE)].symbol != '1'
+		&& whole->map->tiles[(int)((y + whole->xo)
+		/ TILE)][(int)((x) / TILE)].symbol != '1')
+		return (1);
+	return (0);
+}
+
 static void	collision_check(t_whole *whole, double x, double y)
 {
-	if (whole->map->tiles[(int)(y / TILE)][(int)(x / TILE)].symbol != '1')
+	if (whole->pdx < 0)
+		whole->xo = -(TILE / 3);
+	else
+		whole->xo = (TILE / 3);
+	if (whole->pdy < 0)
+		whole->yo = -(TILE / 3);
+	else
+		whole->yo = (TILE / 3);
+	if (whole->map->tiles[(int)((y + whole->yo)
+			/ TILE)][(int)((x + whole->xo) / TILE)].symbol != '1'
+		&& clear_in_all_directions(whole, x, y) == 1)
 	{
 		whole->player_x = x;
 		whole->player_y = y;
-		whole->image->instances[0].x = (int)whole->player_x;
-		whole->image->instances[0].y = (int)whole->player_y;
-		whole->moved = true;
 	}
+	whole->moved = true;
 }
 
 static void	move(t_whole *whole, double x, double y, char direction)
@@ -71,23 +107,22 @@ static void	rotate(t_whole *whole, char direction)
 void	ft_hook(void *param)
 {
 	t_whole	*whole;
-	double	temp_x;
-	double	temp_y;
 
 	whole = (t_whole *)param;
-	temp_x = whole->player_x;
-	temp_y = whole->player_y;
 	whole->moved = false;
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_ESCAPE))
+	{
 		mlx_close_window(whole->mlx);
+		free_all(whole, 0);
+	}
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_W))
-		move(whole, temp_x, temp_y, 'U');
+		move(whole, 0, 0, 'U');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_S))
-		move(whole, temp_x, temp_y, 'D');
+		move(whole, 0, 0, 'D');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_A))
-		move(whole, temp_x, temp_y, 'L');
+		move(whole, 0, 0, 'L');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_D))
-		move(whole, temp_x, temp_y, 'R');
+		move(whole, 0, 0, 'R');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_LEFT))
 		rotate(whole, 'L');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_RIGHT))

@@ -6,13 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 13:55:24 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 11:56:40 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:51:53 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	free_char_p_whole(t_whole *whole)
+static void	free_char_p_whole(t_whole *whole)
 {
 	if (!whole)
 		return ;
@@ -28,28 +28,9 @@ void	free_char_p_whole(t_whole *whole)
 		free(whole->cub_t_so);
 	if (whole->cub_t_we)
 		free(whole->cub_t_we);
-	whole->cub_color_c = NULL;
-	whole->cub_color_f = NULL;
-	whole->cub_t_ea = NULL;
-	whole->cub_t_no = NULL;
-	whole->cub_t_so = NULL;
-	whole->cub_t_we = NULL;
 }
 
-void	ft_free_map_from_n(t_map *map, int line)
-{
-	int	i;
-
-	i = 0;
-	while (i < line)
-	{
-		free(map->tiles[i]);
-		i++;
-	}
-	free(map->tiles);
-}
-
-void	ft_free_map(t_whole *whole, t_map *map)
+static void	ft_free_map(t_whole *whole, t_map *map)
 {
 	int	i;
 
@@ -84,10 +65,25 @@ void	print_error_with_line(t_whole *whole, char *text, char *line)
 	free_all(whole, 1);
 }
 
+static void	free_texture(t_whole *whole)
+{
+	if (whole->ea_texture)
+		mlx_delete_texture(whole->ea_texture);
+	if (whole->no_texture)
+		mlx_delete_texture(whole->no_texture);
+	if (whole->we_texture)
+		mlx_delete_texture(whole->we_texture);
+	if (whole->so_texture)
+		mlx_delete_texture(whole->so_texture);
+}
+
 void	free_all(t_whole *whole, int exit_code)
 {
 	if (whole)
+	{
 		free_char_p_whole(whole);
+		free_texture(whole);
+	}
 	if (whole && whole->map)
 		ft_free_map(whole, whole->map);
 	if (whole && whole->map)

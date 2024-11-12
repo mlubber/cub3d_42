@@ -6,13 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/17 10:49:33 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/04 11:27:08 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:30:20 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	other_char_inside_map(t_whole *whole)
+static int	other_char_inside_map(t_whole *whole)
 {
 	int	y;
 	int	x;
@@ -36,7 +36,7 @@ int	other_char_inside_map(t_whole *whole)
 	return (0);
 }
 
-int	is_player_double(t_whole *whole)
+static int	is_player_double(t_whole *whole)
 {
 	int	y;
 	int	x;
@@ -65,7 +65,7 @@ int	is_player_double(t_whole *whole)
 	return (0);
 }
 
-int	call_checker_function(t_whole *whole)
+static int	call_checker(t_whole *whole)
 {
 	if (is_player_double(whole))
 		return (3);
@@ -76,9 +76,9 @@ int	call_checker_function(t_whole *whole)
 	return (0);
 }
 
-int	check_map(t_whole *whole, int y, int x)
+static int	check_map(t_whole *whole, int y, int x)
 {
-	y = call_checker_function(whole);
+	y = call_checker(whole);
 	if (y)
 		return (y);
 	while (y < whole->rows)

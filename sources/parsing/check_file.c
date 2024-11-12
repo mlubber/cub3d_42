@@ -6,13 +6,43 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/16 14:20:07 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/10/28 07:10:42 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:38:16 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	element_or_scenario(t_whole *whole, char *line, int i, int fd)
+static void	check_textures(t_whole *whole)
+{
+	whole->no_texture = mlx_load_png(whole->cub_t_no);
+	if (whole->no_texture == NULL)
+		free_all(whole, 1);
+	whole->so_texture = mlx_load_png(whole->cub_t_so);
+	if (whole->so_texture == NULL)
+		free_all(whole, 1);
+	whole->we_texture = mlx_load_png(whole->cub_t_we);
+	if (whole->we_texture == NULL)
+		free_all(whole, 1);
+	whole->ea_texture = mlx_load_png(whole->cub_t_ea);
+	if (whole->ea_texture == NULL)
+		free_all(whole, 1);
+}
+
+void	check_name_extension(t_whole *whole)
+{
+	int	i;
+
+	i = 0;
+	while (whole->given_map[i] && whole->given_map[i] != '.')
+		i++;
+	if (whole->given_map[i] == '.' && ft_strncmp(&whole->given_map[i], ".cub",
+			ft_strlen(&whole->given_map[i])) == 0)
+		return ;
+	else
+		print_error(whole, "extension");
+}
+
+static int	element_or_scenario(t_whole *whole, char *line, int i, int fd)
 {
 	if (line[i] && (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' \
 		|| line[i] == 'E' || line[i] == 'F' || line[i] == 'C'))
@@ -52,4 +82,5 @@ void	check_file(t_whole *whole, int i, int fd, char *line)
 	if (!whole->empty_file)
 		print_error(whole, "Empty file");
 	close(fd);
+	check_textures(whole);
 }

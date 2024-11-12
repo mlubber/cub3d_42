@@ -6,110 +6,60 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 09:21:17 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/12 13:11:34 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	put_map(t_whole *whole)
+void	*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
+		uint32_t color)
 {
-	int	i;
-	int	j;
+	mlx_image_t	*image;
+	uint32_t	x;
+	uint32_t	y;
 
-	whole->wall = ft_draw_rect(whole->mlx, TILE, TILE, 0xFFFFFFFF);
-	if (!whole->wall)
+	image = mlx_new_image(mlx, width, height);
+	x = 0;
+	y = 0;
+	while (y < height)
 	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	whole->floor = ft_draw_rect(whole->mlx, TILE, TILE, 0x000000FF);
-	if (!whole->floor)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	i = 0;
-	while (i < whole->rows)
-	{
-		j = 0;
-		while (j < whole->column)
+		mlx_put_pixel(image, x, y, color);
+		y++;
+		if (y + 1 == height)
 		{
-			if (whole->map->tiles[i][j].symbol == '1')
-			{
-				if (mlx_image_to_window(whole->mlx, whole->wall, j * TILE, i * TILE) == -1)
-				{
-					mlx_close_window(whole->mlx);
-					printf("%s\n", mlx_strerror(mlx_errno));
-					return (EXIT_FAILURE);
-				}
-			}
-			else if (whole->map->tiles[i][j].symbol == '0' || whole->map->tiles[i][j].symbol == ' ')
-			{
-				if (mlx_image_to_window(whole->mlx, whole->floor, j * TILE, i * TILE) == -1)
-				{
-					mlx_close_window(whole->mlx);
-					printf("%s\n", mlx_strerror(mlx_errno));
-					return (EXIT_FAILURE);
-				}
-			}
-			else
-			{
-				if (mlx_image_to_window(whole->mlx, whole->floor, j * TILE, i * TILE) == -1)
-				{
-					mlx_close_window(whole->mlx);
-					printf("%s\n", mlx_strerror(mlx_errno));
-					return (EXIT_FAILURE);
-				}
-			}
-			j++;
+			y = 0;
+			x++;
+			if (x == width)
+				break ;
 		}
-		i++;
 	}
-	whole->ceiling = ft_draw_rect(whole->mlx, whole->width, whole->height, whole->c_hex);
+	return (image);
+}
+
+int	error_close_window(t_whole *whole)
+{
+	mlx_close_window(whole->mlx);
+	printf("%s\n", mlx_strerror(mlx_errno));
+	return (EXIT_FAILURE);
+}
+
+int	put_background(t_whole *whole)
+{
+	whole->ceiling = ft_draw_rect(whole->mlx, whole->width,
+			whole->height, whole->c_hex);
 	if (!whole->ceiling)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(whole->mlx, whole->ceiling, 0, whole->height) == -1)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	whole->ground = ft_draw_rect(whole->mlx, whole->width, whole->height / 2, whole->g_hex);
+		return (error_close_window(whole));
+	if (mlx_image_to_window(whole->mlx, whole->ceiling, 0, 0) == -1)
+		return (error_close_window(whole));
+	whole->ground = ft_draw_rect(whole->mlx, whole->width,
+			whole->height / 2, whole->g_hex);
 	if (!whole->ground)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(whole->mlx, whole->ground, 0, whole->height + whole->height / 2) == -1)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	whole->image = mlx_new_image(whole->mlx, 10, 10);
-	if (!whole->image)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(whole->mlx, whole->image,
-			(int)whole->player_x,
-			(int)whole->player_y) == -1)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+		return (error_close_window(whole));
+	if (mlx_image_to_window(whole->mlx, whole->ground, 0,
+			whole->height / 2) == -1)
+		return (error_close_window(whole));
+	return (0);
 }
 
 void	init_pa(t_whole *whole)
@@ -128,21 +78,18 @@ void	init_pa(t_whole *whole)
 
 int	init_window(t_whole *whole)
 {
-	whole->mlx = mlx_init(whole->width, whole->height * 2, "CUB3D", false);
+	whole->mlx = mlx_init(whole->width, whole->height, "CUB3D", false);
 	if (!whole->mlx)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
 	init_pa(whole);
-	check_textures(whole, 'S');
-	if (put_map(whole) == 1)
+	if (put_background(whole) == 1)
 		return (EXIT_FAILURE);
 	whole->ray = ft_calloc(1, sizeof(t_ray));
 	if (!whole->ray)
 		print_error(whole, "allocation");
 	raycasting(whole);
-	printf("maplines: %d\n", whole->rows);
-	printf("height: %d\n", whole->height);
 	return (EXIT_SUCCESS);
 }
