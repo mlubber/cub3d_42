@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/05 11:23:36 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/19 11:34:03 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,37 @@ t_whole	*initialization_struct(char *map)
 		print_error(whole, "allocation");
 	whole->given_map = map;
 	return (whole);
+}
+
+void	ft_key(mlx_key_data_t key_data, void *param)
+{
+	(void)param;
+	if (key_data.key == MLX_KEY_SPACE && key_data.action == MLX_PRESS)
+		printf("space has been pressed\n");
+	if (key_data.key == MLX_KEY_SPACE && key_data.action == MLX_RELEASE)
+		printf("space has been released\n");
+}
+
+void	ft_mouse(enum mouse_key button, enum action action,
+		enum modifier_key mods, void *param)
+{
+	t_whole	*whole;
+	int32_t	mouse_x;
+	int32_t	mouse_y;
+
+	whole = (t_whole *)param;
+	(void)mods;
+	mlx_get_mouse_pos(whole->mlx, &mouse_x, &mouse_y);
+	if (action == MLX_PRESS)
+	{
+		printf("Mouse pressed: Button %d at (%d, %d)\n", button, mouse_x,
+			mouse_y);
+	}
+	else if (action == MLX_RELEASE)
+	{
+		printf("Mouse released: Button %d at (%d, %d)\n", button, mouse_x,
+			mouse_y);
+	}
 }
 
 int	main(int argc, char **argv)

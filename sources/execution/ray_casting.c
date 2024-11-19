@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/12 04:34:26 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/19 10:41:59 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	raycasting(t_whole *whole)
 		calculate_ray_horizonal_line(whole);
 		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
-		draw_ray(whole, 0);
+		// draw_ray(whole, 0);
 		if ((int)whole->ray->r_dist != 0)
 			wall = (whole->height * TILE) / (int)whole->ray->r_dist;
 		else
@@ -170,7 +170,6 @@ void	raycasting(t_whole *whole)
 		if (wall > whole->height)
 			wall = whole->height;
 		draw_v_line(whole, 8, wall, r);
-		// printf("%d\n", wall);
 		r++;
 		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);

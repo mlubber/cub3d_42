@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 12:47:55 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/19 11:39:27 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ void	init_pa(t_whole *whole)
 		whole->pa = 1.5 * PI;
 	whole->pdx = cos(whole->pa) * SPEED;
 	whole->pdy = sin(whole->pa) * SPEED;
+	whole->delta_spin = 0;
+	whole->last_mouse_x = 0;
 }
 
 int	init_window(t_whole *whole)

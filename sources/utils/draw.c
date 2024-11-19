@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/28 08:21:42 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/11 16:51:52 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/12 15:11:44 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	draw_ray(t_whole *whole, int i)
 	while (i <= steps)
 	{
 		mlx_put_pixel(whole->ray_image,
-			(int)((int)(whole->player_x) + (i * x_inc)),
-			(int)((int)(whole->player_y) + (i * y_inc)),
+			(int)((int)(whole->player_x_start) + (i * x_inc)),
+			(int)((int)(whole->player_y_start) + (i * y_inc)),
 			0xFF0000FF);
 		i++;
 	}
