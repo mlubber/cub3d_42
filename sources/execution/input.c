@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 09:02:29 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 12:01:15 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/19 12:01:37 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,46 @@ static void	rotate(t_whole *whole, char direction)
 	whole->moved = true;
 }
 
+static void	rotate_mouse(t_whole *whole, char direction)
+{
+	if (direction == 'L')
+	{
+		whole->pa -= (0.005 * abs(whole->delta_spin));
+		if (whole->pa < 0)
+			whole->pa += 2 * PI;
+	}
+	else
+	{
+		whole->pa += (0.005 * abs(whole->delta_spin));
+		if (whole->pa > 2 * PI)
+			whole->pa -= 2 * PI;
+	}
+	whole->pdx = cos(whole->pa) * SPEED;
+	whole->pdy = sin(whole->pa) * SPEED;
+	whole->moved = true;
+}
+
+void	mouse_move_callback(double x, double y, void *param)
+{
+	t_whole	*whole;
+
+	(void)y;
+	whole = (t_whole *)param;
+	whole->delta_spin = (int)x - whole->last_mouse_x;
+	if (abs(whole->delta_spin) > 10)
+	{
+		if (whole->delta_spin > 0)
+			whole->delta_spin = 10;
+		else
+			whole->delta_spin = -10;
+	}
+	if (whole->delta_spin > 0)
+		rotate_mouse(whole, 'R');
+	else if (whole->delta_spin < 0)
+		rotate_mouse(whole, 'L');
+	whole->last_mouse_x = (int)x;
+}
+
 void	ft_hook(void *param)
 {
 	t_whole	*whole;
@@ -127,6 +167,9 @@ void	ft_hook(void *param)
 		rotate(whole, 'L');
 	if (mlx_is_key_down(whole->mlx, MLX_KEY_RIGHT))
 		rotate(whole, 'R');
+	mlx_cursor_hook(whole->mlx, mouse_move_callback, whole);
+	if (whole->delta_spin)
+		whole->moved = true;
 	if (whole->moved)
 		raycasting(whole);
 }

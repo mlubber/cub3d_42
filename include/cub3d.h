@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:48:17 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/19 11:59:28 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_whole
 	bool			moved;
 	int				xo;
 	int				yo;
+	int				delta_spin;
+	int				last_mouse_x;
 	t_map			*map;
 	t_ray			*ray;
 }					t_whole;
