@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:14:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/19 07:01:54 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/25 10:39:51 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int	check_scenario(t_whole *whole, char *line, int fd)
 			return (1);
 		whole->width = whole->column * TILE;
 		whole->height = whole->rows * TILE;
+		whole->mm_x = whole->width + TILE;
+		whole->mm_y = whole->height - TILE * 4;
 		// if (whole->height < 1080)
 		// whole->height = 1080;
 		allocate_m_map(whole, 0, line);

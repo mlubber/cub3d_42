@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/19 11:53:47 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/25 16:16:12 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
 # include "../libraries/libft/include/libft.h"
 # include "../libraries/libft/include/get_next_line.h"
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}	t_point;
 
 typedef struct s_tile
 {
@@ -86,6 +92,15 @@ typedef struct s_whole
 	mlx_image_t		*we_img;
 	mlx_image_t		*ea_img;
 	mlx_image_t		*square;
+	mlx_image_t		*minimap;
+	mlx_image_t		*torch_00;
+	mlx_image_t		*torch_01;
+	mlx_image_t		*torch_02;
+	mlx_image_t		*torch_03;
+	mlx_image_t		*torch_04;
+	mlx_image_t		*torch_05;
+	mlx_image_t		*torch_06;
+	mlx_image_t		*torch_07;
 	mlx_texture_t	*texture;
 	char			*cub_t_no;
 	char			*cub_t_so;
@@ -118,10 +133,14 @@ typedef struct s_whole
 	int				yo;
 	int				delta_spin;
 	int				last_mouse_x;
+	int				mm_x;
+	int				mm_y;
 	char			*given_map;
 	t_map			*map;
 	t_ray			*ray;
 }					t_whole;
+
+void		put_mini_map(void *param);
 
 void		allocate_m_map(t_whole *whole, int i, char *line_to_free);
 void		check_file(t_whole *whole, int i, int fd, char *line);
@@ -155,6 +174,8 @@ int			init_window(t_whole *whole);
 void		put_player(void *param);
 void		*ft_draw_rect(mlx_t *mlx, uint32_t width, uint32_t height,
 				uint32_t color);
+void		ft_draw_rect_on_image(mlx_image_t *image, uint32_t width,
+				uint32_t height, uint32_t color);
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 // Execute
@@ -162,6 +183,7 @@ int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void		ft_hook(void *param);
 void		raycasting(t_whole *whole);
 void		draw_ray(t_whole *whole, int i);
+void		draw_mini_map(t_whole *whole, uint32_t color);
 
 double		calculate_distance(double ax, double ay, double bx, double by);
 void		change_degrees(t_whole *whole);

@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/19 11:34:03 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/25 15:46:41 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,85 @@ void	ft_mouse(enum mouse_key button, enum action action,
 	}
 }
 
+// static void	ft_image_clear(mlx_image_t *image, uint32_t color)
+// {
+// 	uint32_t	y;
+// 	uint32_t	x;
+
+// 	if (!image || !image->pixels)
+// 		return ;
+// 	y = 0;
+// 	while (y < image->height)
+// 	{
+// 		x = 0;
+// 		while (x < image->width)
+// 		{
+// 			((uint32_t *)image->pixels)[y * image->width + x] = color;
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+void	put_mini_map(void *param)
+{
+	t_whole	*whole;
+
+	whole = (t_whole *)param;
+	// if (!whole->minimap)
+	// {
+	// 	whole->minimap = ft_draw_rect(whole->mlx, 250, 150, 0xFFFFFF88);
+	// 	mlx_image_to_window(whole->mlx, whole->minimap, whole->width + 50, whole->height - 200);
+	// }
+	// else
+	// {
+	// 	ft_image_clear(whole->minimap, 0xFFFFFFFF);
+	// 	whole->minimap = ft_draw_rect(whole->mlx, 250, 150, 0xFFFFFF88);
+	// }
+	mlx_delete_image(whole->mlx, whole->minimap);
+	whole->minimap = ft_draw_rect(whole->mlx, 250, 150, 0xFFFFFF88);
+	mlx_image_to_window(whole->mlx, whole->minimap, whole->width + 50, whole->height - 200);
+}
+void	set_torch_to_false(t_whole *whole)
+{
+	whole->torch_00->enabled = false;
+	whole->torch_01->enabled = false;
+	whole->torch_02->enabled = false;
+	whole->torch_03->enabled = false;
+	whole->torch_04->enabled = false;
+	whole->torch_05->enabled = false;
+	whole->torch_06->enabled = false;
+	whole->torch_07->enabled = false;
+}
+
+void	animation(void *param)
+{
+	struct timeval	tv;
+	t_whole			*whole;
+	long			milliseconds;
+
+	gettimeofday(&tv, NULL);
+	milliseconds = tv.tv_usec / 1000;
+	whole = (t_whole *)param;
+	set_torch_to_false(whole);
+	if (milliseconds < 125)
+		whole->torch_00->enabled = true;
+	else if (milliseconds < 250)
+		whole->torch_01->enabled = true;
+	else if (milliseconds < 375)
+		whole->torch_02->enabled = true;
+	else if (milliseconds < 500)
+		whole->torch_03->enabled = true;
+	else if (milliseconds < 625)
+		whole->torch_04->enabled = true;
+	else if (milliseconds < 750)
+		whole->torch_05->enabled = true;
+	else if (milliseconds < 875)
+		whole->torch_06->enabled = true;
+	else if (milliseconds < 1000)
+		whole->torch_07->enabled = true;
+}
+
 int	main(int argc, char **argv)
 {
 	t_whole	*whole;
@@ -91,6 +170,8 @@ int	main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		mlx_loop_hook(whole->mlx, put_player, whole);
 		mlx_loop_hook(whole->mlx, ft_hook, whole);
+		mlx_loop_hook(whole->mlx, animation, whole);
+		// mlx_loop_hook(whole->mlx, put_mini_map, whole);
 		mlx_loop(whole->mlx);
 		mlx_terminate(whole->mlx);
 		free_all(whole, 0);
