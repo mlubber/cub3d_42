@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/25 15:46:41 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/26 07:46:56 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,45 +110,45 @@ void	put_mini_map(void *param)
 	whole->minimap = ft_draw_rect(whole->mlx, 250, 150, 0xFFFFFF88);
 	mlx_image_to_window(whole->mlx, whole->minimap, whole->width + 50, whole->height - 200);
 }
-void	set_torch_to_false(t_whole *whole)
-{
-	whole->torch_00->enabled = false;
-	whole->torch_01->enabled = false;
-	whole->torch_02->enabled = false;
-	whole->torch_03->enabled = false;
-	whole->torch_04->enabled = false;
-	whole->torch_05->enabled = false;
-	whole->torch_06->enabled = false;
-	whole->torch_07->enabled = false;
-}
+// void	set_torch_to_false(t_whole *whole)
+// {
+// 	whole->torch_00->enabled = false;
+// 	whole->torch_01->enabled = false;
+// 	whole->torch_02->enabled = false;
+// 	whole->torch_03->enabled = false;
+// 	whole->torch_04->enabled = false;
+// 	whole->torch_05->enabled = false;
+// 	whole->torch_06->enabled = false;
+// 	whole->torch_07->enabled = false;
+// }
 
-void	animation(void *param)
-{
-	struct timeval	tv;
-	t_whole			*whole;
-	long			milliseconds;
+// void	animation(void *param)
+// {
+// 	struct timeval	tv;
+// 	t_whole			*whole;
+// 	long			milliseconds;
 
-	gettimeofday(&tv, NULL);
-	milliseconds = tv.tv_usec / 1000;
-	whole = (t_whole *)param;
-	set_torch_to_false(whole);
-	if (milliseconds < 125)
-		whole->torch_00->enabled = true;
-	else if (milliseconds < 250)
-		whole->torch_01->enabled = true;
-	else if (milliseconds < 375)
-		whole->torch_02->enabled = true;
-	else if (milliseconds < 500)
-		whole->torch_03->enabled = true;
-	else if (milliseconds < 625)
-		whole->torch_04->enabled = true;
-	else if (milliseconds < 750)
-		whole->torch_05->enabled = true;
-	else if (milliseconds < 875)
-		whole->torch_06->enabled = true;
-	else if (milliseconds < 1000)
-		whole->torch_07->enabled = true;
-}
+// 	gettimeofday(&tv, NULL);
+// 	milliseconds = tv.tv_usec / 1000;
+// 	whole = (t_whole *)param;
+// 	set_torch_to_false(whole);
+// 	if (milliseconds < 125)
+// 		whole->torch_00->enabled = true;
+// 	else if (milliseconds < 250)
+// 		whole->torch_01->enabled = true;
+// 	else if (milliseconds < 375)
+// 		whole->torch_02->enabled = true;
+// 	else if (milliseconds < 500)
+// 		whole->torch_03->enabled = true;
+// 	else if (milliseconds < 625)
+// 		whole->torch_04->enabled = true;
+// 	else if (milliseconds < 750)
+// 		whole->torch_05->enabled = true;
+// 	else if (milliseconds < 875)
+// 		whole->torch_06->enabled = true;
+// 	else if (milliseconds < 1000)
+// 		whole->torch_07->enabled = true;
+// }
 
 int	main(int argc, char **argv)
 {

@@ -6,95 +6,95 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/25 14:55:02 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/26 07:43:55 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	load_torch(t_whole *whole)
-{
-	whole->texture = mlx_load_png("./textures/torch_00.png");
-	whole->torch_00 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_00)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_01.png");
-	whole->torch_01 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_01)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_02.png");
-	whole->torch_02 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_02)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_03.png");
-	whole->torch_03 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_03)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_04.png");
-	whole->torch_04 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_04)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_05.png");
-	whole->torch_05 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_05)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_06.png");
-	whole->torch_06 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_06)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	whole->texture = mlx_load_png("./textures/torch_07.png");
-	whole->torch_07 = mlx_texture_to_image(whole->mlx, whole->texture);
-	if (!whole->torch_07)
-	{
-		mlx_close_window(whole->mlx);
-		printf("%s\n", mlx_strerror(mlx_errno));
-		return ;
-	}
-	mlx_delete_texture(whole->texture);
-	mlx_image_to_window(whole->mlx, whole->torch_00, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_01, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_02, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_03, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_04, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_05, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_06, 3400, 300);
-	mlx_image_to_window(whole->mlx, whole->torch_07, 3400, 300);
-}
+// void	load_torch(t_whole *whole)
+// {
+// 	whole->texture = mlx_load_png("./textures/torch_00.png");
+// 	whole->torch_00 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_00)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_01.png");
+// 	whole->torch_01 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_01)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_02.png");
+// 	whole->torch_02 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_02)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_03.png");
+// 	whole->torch_03 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_03)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_04.png");
+// 	whole->torch_04 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_04)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_05.png");
+// 	whole->torch_05 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_05)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_06.png");
+// 	whole->torch_06 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_06)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	whole->texture = mlx_load_png("./textures/torch_07.png");
+// 	whole->torch_07 = mlx_texture_to_image(whole->mlx, whole->texture);
+// 	if (!whole->torch_07)
+// 	{
+// 		mlx_close_window(whole->mlx);
+// 		printf("%s\n", mlx_strerror(mlx_errno));
+// 		return ;
+// 	}
+// 	mlx_delete_texture(whole->texture);
+// 	mlx_image_to_window(whole->mlx, whole->torch_00, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_01, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_02, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_03, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_04, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_05, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_06, 3400, 300);
+// 	mlx_image_to_window(whole->mlx, whole->torch_07, 3400, 300);
+// }
 
 int	put_map(t_whole *whole)
 {

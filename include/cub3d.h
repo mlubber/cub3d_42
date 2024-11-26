@@ -6,7 +6,7 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/25 16:16:12 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/26 07:47:15 by mlubbers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ void		check_textures(t_whole *whole, char c);
 
 // Init
 int			init_window(t_whole *whole);
+void		load_torch(t_whole *whole);
+void		animation(void *param);
 
 // Utils
 void		put_player(void *param);
