@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:54:50 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/05 08:04:09 by mlubbers      ########   odam.nl         */
+/*   Updated: 2024/11/26 16:25:27 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static uint32_t	hex_str_to_uint32(const char *hexStr)
 
 static int	rgb_to_hex(int r, int g, int b, char hex[11])
 {
-	if ((r < 0 || r > 255) && (g < 0 || g > 255) && (b < 0 || b > 255))
+	if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
 		return (1);
 	hex[0] = '0';
 	hex[1] = 'x';
