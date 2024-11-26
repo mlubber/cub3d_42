@@ -6,11 +6,11 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/12 09:58:26 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/26 11:30:29 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/26 12:09:14 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include_bonus/cub3d.h"
 
 static int	texture_offset(t_whole *whole)
 {

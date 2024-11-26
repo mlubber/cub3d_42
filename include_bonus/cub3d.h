@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3d_bonus.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 09:07:17 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/26 11:37:02 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/26 11:15:38 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # define TILE 64
 # define WIDTH 1920
@@ -22,6 +22,7 @@
 # define DR 0.0174533
 # define SPEED 5
 
+# include <sys/time.h>
 # include <math.h>
 # include <string.h>
 # include <stdbool.h>
@@ -34,6 +35,12 @@
 # include "../libraries/libft/include/libft.h"
 # include "../libraries/libft/include/get_next_line.h"
 
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}			t_point;
+
 typedef struct s_tile
 {
 	char	symbol;
@@ -43,6 +50,16 @@ typedef struct s_map
 {
 	t_tile	**tiles;
 }			t_map;
+
+typedef struct s_map_list
+{
+	int					x;
+	int					y;
+	int					instance;
+	bool				open;
+	struct s_map_list	*next;
+}			t_map_list;
+
 
 typedef struct s_ray
 {
@@ -72,6 +89,17 @@ typedef struct s_whole
 	mlx_image_t		*ray_image;
 	mlx_image_t		*ceiling;
 	mlx_image_t		*ground;
+	mlx_image_t		*torch_00;
+	mlx_image_t		*torch_01;
+	mlx_image_t		*torch_02;
+	mlx_image_t		*torch_03;
+	mlx_image_t		*torch_04;
+	mlx_image_t		*torch_05;
+	mlx_image_t		*torch_06;
+	mlx_image_t		*torch_07;
+	mlx_texture_t	*texture;
+	mlx_texture_t	*de_texture;
+	mlx_texture_t	*op_texture;
 	mlx_texture_t	*so_texture;
 	mlx_texture_t	*no_texture;
 	mlx_texture_t	*ea_texture;
@@ -80,9 +108,9 @@ typedef struct s_whole
 	uint32_t		color;
 	uint32_t		c_hex;
 	uint32_t		g_hex;
-	double			scale;
 	double			player_x;
 	double			player_y;
+	double			scale;
 	double			pa;
 	double			pdx;
 	double			pdy;
@@ -104,9 +132,16 @@ typedef struct s_whole
 	bool			moved;
 	int				xo;
 	int				yo;
+	int				delta_spin;
+	int				last_mouse_x;
+	int				mm_x;
+	int				mm_y;
 	t_map			*map;
 	t_ray			*ray;
+	t_map_list		*list_clue;
 }					t_whole;
+
+
 
 // Execution
 
@@ -120,10 +155,22 @@ void		set_ray_to_draw(t_whole *whole);
 void		change_degrees(t_whole *whole);
 double		calculate_distance(double ax, double ay, double bx, double by);
 
+void		my_key_hook(mlx_key_data_t keydata, void *param);
+t_map_list	*door_node(t_whole *whole, int x, int y);
+int			check_door_open(t_whole *whole, int ray_x, int ray_y);
+int			search_door_node(t_whole *whole, int y, int x);
+
+void		mouse_move_callback(double x, double y, void *param);
+void		draw_mini_map(t_whole *whole, uint32_t color);
+
+
+
 // Init
 
 void		init_window(t_whole *whole);
 void		error_close_window(t_whole *whole, int exit_code);
+void		load_torch(t_whole *whole);
+void		animation(void *param);
 
 // Parsing
 
@@ -144,6 +191,11 @@ int			check_edges(t_whole *whole);
 int			process_element(t_whole *whole, char *line, int i, int fd);
 int			is_white_space(char c);
 
+void		make_list_door(t_whole *whole);
+
+void		make_node(int x, int y, int instance, t_whole *whole);
+
+
 // Utils
 
 void		free_all(t_whole *whole, int exit_code);
@@ -154,5 +206,8 @@ int			check_split(char **split);
 void		free_array(char **strlist);
 void		read_line_until_end(int fd);
 void		ft_free_map_from_n(t_map *map, int line);
+void		set_offset(t_whole *whole);
+void		close_out(void *param);
+
 
 #endif

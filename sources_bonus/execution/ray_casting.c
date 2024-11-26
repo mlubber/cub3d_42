@@ -6,17 +6,14 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/04 11:42:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/26 11:37:28 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/26 12:08:52 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include_bonus/cub3d.h"
 
-static void	check_hit_wall_vertical(t_whole *whole, int i)
+static void	check_hit_wall_vertical(t_whole *whole, int i, int t_rx, int t_ry)
 {
-	int		t_rx;
-	int		t_ry;
-
 	whole->ray->v_dist = 10000000;
 	while (i < whole->column)
 	{
@@ -24,7 +21,9 @@ static void	check_hit_wall_vertical(t_whole *whole, int i)
 		t_ry = (int)(whole->ray->v_ry) / TILE;
 		if ((t_rx >= 0 && t_rx < whole->column)
 			&& (t_ry >= 0 && t_ry < whole->rows)
-			&& (whole->map->tiles[t_ry][t_rx].symbol == '1'))
+			&& ((whole->map->tiles[t_ry][t_rx].symbol == '1')
+			|| ((whole->map->tiles[t_ry][t_rx].symbol == 'D')
+			&& check_door_open(whole, t_rx, t_ry) == 0)))
 		{
 			whole->ray->v_dist = calculate_distance(whole->player_x,
 					whole->player_y, whole->ray->v_rx, whole->ray->v_ry);
@@ -60,13 +59,11 @@ static void	calculate_ray_vertical_line(t_whole *whole)
 		whole->ray->v_xo = TILE;
 		whole->ray->v_yo = -whole->ray->v_xo * whole->ray->v_tan;
 	}
+	check_hit_wall_vertical(whole, 0, 0, 0);
 }
 
-static void	check_hit_wall_horizonal(t_whole *whole, int i)
+static void	check_hit_wall_horizonal(t_whole *whole, int i, int t_rx, int t_ry)
 {
-	int	t_rx;
-	int	t_ry;
-
 	whole->ray->h_dist = 10000000;
 	while (i < whole->rows)
 	{
@@ -74,7 +71,9 @@ static void	check_hit_wall_horizonal(t_whole *whole, int i)
 		t_ry = (int)(whole->ray->h_ry) / TILE;
 		if ((t_rx >= 0 && t_rx < whole->column)
 			&& (t_ry >= 0 && t_ry < whole->rows)
-			&& (whole->map->tiles[t_ry][t_rx].symbol == '1'))
+			&& ((whole->map->tiles[t_ry][t_rx].symbol == '1')
+			|| ((whole->map->tiles[t_ry][t_rx].symbol == 'D')
+			&& check_door_open(whole, t_rx, t_ry) == 0)))
 		{
 			whole->ray->h_dist = calculate_distance(whole->player_x,
 					whole->player_y, whole->ray->h_rx, whole->ray->h_ry);
@@ -110,6 +109,7 @@ static void	calculate_ray_horizonal_line(t_whole *whole)
 		whole->ray->h_yo = TILE;
 		whole->ray->h_xo = -whole->ray->h_yo * whole->ray->h_tan;
 	}
+	check_hit_wall_horizonal(whole, 0, 0, 0);
 }
 
 void	raycasting(t_whole *whole)
@@ -127,15 +127,15 @@ void	raycasting(t_whole *whole)
 	while (r < 240)
 	{
 		calculate_ray_vertical_line(whole);
-		check_hit_wall_vertical(whole, 0);
 		calculate_ray_horizonal_line(whole);
-		check_hit_wall_horizonal(whole, 0);
 		set_ray_to_draw(whole);
 		draw_texture(whole, ((r * 8)));
 		r++;
 		whole->ray->ra += (0.25 * DR);
 		change_degrees(whole);
 	}
+	draw_mini_map(whole, 0xFFFFFFFF);
 	if (mlx_image_to_window(whole->mlx, whole->ray_image, 0, 0) == -1)
 		error_close_window(whole, 1);
+	whole->ray_image->instances->z = 2;
 }

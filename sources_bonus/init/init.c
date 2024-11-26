@@ -6,11 +6,11 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/15 11:07:44 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/26 11:33:48 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/26 12:08:37 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include_bonus/cub3d.h"
 
 void	error_close_window(t_whole *whole, int exit_code)
 {
@@ -86,11 +86,15 @@ void	init_window(t_whole *whole)
 {
 	whole->mlx = mlx_init(whole->width, whole->height, "CUB3D", false);
 	if (!whole->mlx)
-		error_close_window(whole, 1);
+	{
+		printf("%s\n", mlx_strerror(mlx_errno));
+		free_all(whole, 1);
+	}
 	init_pa(whole);
 	put_background(whole);
 	whole->ray = ft_calloc(1, sizeof(t_ray));
 	if (!whole->ray)
 		print_error(whole, "allocation");
 	raycasting(whole);
+	load_torch(whole);
 }

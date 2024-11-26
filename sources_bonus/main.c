@@ -6,11 +6,11 @@
 /*   By: mlubbers <mlubbers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 08:46:27 by mlubbers      #+#    #+#                 */
-/*   Updated: 2024/11/26 11:36:32 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/26 12:07:33 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include_bonus/cub3d.h"
 
 t_whole	*initialization_struct(char *map)
 {
@@ -24,14 +24,6 @@ t_whole	*initialization_struct(char *map)
 		print_error(whole, "allocation");
 	whole->given_map = map;
 	return (whole);
-}
-
-void	close_out(void *param)
-{
-	t_whole	*whole;
-
-	whole = (t_whole *)param;
-	error_close_window(whole, 0);
 }
 
 int	main(int argc, char **argv)
@@ -49,8 +41,11 @@ int	main(int argc, char **argv)
 		check_name_extension(whole);
 		check_file(whole, 0, 0, line);
 		hexconvert(whole, 0, 0, 0);
+		make_list_door(whole);
 		init_window(whole);
+		mlx_key_hook(whole->mlx, my_key_hook, whole);
 		mlx_loop_hook(whole->mlx, ft_hook, whole);
+		mlx_loop_hook(whole->mlx, animation, whole);
 		mlx_close_hook(whole->mlx, close_out, whole);
 		mlx_loop(whole->mlx);
 		mlx_terminate(whole->mlx);
