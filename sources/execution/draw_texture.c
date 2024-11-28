@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/12 09:58:26 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/26 11:30:29 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/28 06:46:33 by link          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static void	scale_and_put_pixel(t_whole *whole, int start_x, int y, int x)
 		dx = 0;
 		screen_y = (whole->height / 2) - (whole->wall_height / 2)
 			+ (int)(y * whole->scale + dy);
-		if ((int)screen_y > whole->height || screen_y < 0)
+		if ((int)screen_y > whole->height)
 			break ;
 		while (dx < x)
 		{
 			screen_x = start_x + (int)(x + dx);
-			if (screen_x >= 0 && screen_x < whole->ray_image->width
-				&& screen_y >= 0 && screen_y < whole->ray_image->height)
+			if (screen_x < whole->ray_image->width
+				&& screen_y < whole->ray_image->height)
 				mlx_put_pixel(whole->ray_image, screen_x, screen_y,
 					whole->color);
 			dx += 1;

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/22 14:54:50 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/11/26 16:25:27 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/11/28 06:45:25 by link          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	rgb_to_hex(int r, int g, int b, char hex[11])
 
 int	hexconvert(t_whole *whole, int i, int r, int g)
 {
-	char		**rgb;
+	char		**rgb = NULL;
 	int			b;
 	char		hex[11];
 
